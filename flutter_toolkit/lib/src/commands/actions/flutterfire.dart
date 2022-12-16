@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io' show File, Platform;
 
 import '../../core/action.dart';
-import '../../ext/shell.dart';
+import '../../utils/shell.dart';
 
 class FlutterFireConfigure extends IAction {
   final IFlutterFireConfig config;

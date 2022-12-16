@@ -1,7 +1,7 @@
 import 'package:args/args.dart' show ArgParser, ArgResults;
 
 import '../core/command.dart';
-import '../ext/args.dart';
+import '../utils/args.dart';
 import 'actions/firebase_cli.dart';
 import 'actions/firebase_login.dart';
 import 'actions/flutterfire.dart';

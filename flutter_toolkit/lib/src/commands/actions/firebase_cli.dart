@@ -1,6 +1,6 @@
 import '../../core/action.dart';
 import '../../env.dart';
-import '../../ext/shell.dart';
+import '../../utils/shell.dart';
 
 class InstallFirebaseCliIfNeeded extends GrantedAction {
   @override

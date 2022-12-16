@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 import '../../core/action.dart';
 import '../../env.dart';
-import '../../ext/shell.dart';
+import '../../utils/shell.dart';
 
 class PrintDartDefine extends IAction {
   final IDartDefineConfig source;

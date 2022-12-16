@@ -1,7 +1,7 @@
 import 'dart:convert' show jsonDecode;
 
 import '../../core/action.dart';
-import '../../ext/shell.dart';
+import '../../utils/shell.dart';
 
 class LoginToFirebaseIfNeeded extends GrantedAction {
   @override
