@@ -1,6 +1,5 @@
 import 'package:args/args.dart' show ArgParser, ArgResults;
 
-import '../core/action.dart';
 import '../core/command.dart';
 import '../ext/args.dart';
 import 'actions/firebase_cli.dart';

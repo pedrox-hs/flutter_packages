@@ -9,7 +9,7 @@ final commands = <Command>[
   ProjectSetupCommand(),
 ];
 
-final runner = CommandRunner(
+final runner = CommandRunner<int>(
   'devtools',
   'A set of commands to improve development productivity.',
 )..addCommands(commands);

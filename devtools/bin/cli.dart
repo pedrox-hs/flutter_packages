@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:devtools/devtools.dart';
 
-void main(List<String> args) {
-  runner.run(args);
+void main(List<String> args) async {
+  exit(await runner.run(args) ?? 0);
 }
