@@ -9,18 +9,14 @@ executables:
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
-  flutter: ">=1.17.0"
 
 dependencies:
   args: ^2.3.1
   dotenv: ^4.0.1
-  flutter:
-    sdk: flutter
   flutterfire_cli: <1.0.0
   path: any
   process_run: ^0.12.3+2
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
+  test: ^1.16.0
+  lints: ^2.0.0
