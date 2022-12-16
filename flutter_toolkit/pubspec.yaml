@@ -18,6 +18,7 @@ dependencies:
   meta: ^1.8.0
   path: any
   process_run: ^0.12.3+2
+  yaml: ^3.1.1
 
 dev_dependencies:
   test: ^1.16.0

@@ -2,6 +2,7 @@ import 'package:args/args.dart';
 
 import '../core/command.dart';
 import '../env.dart';
+import '../utils/pubspec.dart';
 import 'actions/print_dart_define.dart';
 
 const _fromFiles = 'from-files';
@@ -56,6 +57,7 @@ class _Adapter extends IArgParserAdapter<IDartDefineConfig> {
       _fromPlatformExpr,
       abbr: 'p',
       help: 'Includes platform environment that satisfy the expression',
+      defaultsTo: ['^${pubspec.name.toUpperCase()}_'],
     )
     ..addOption(
       _separator,
