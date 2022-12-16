@@ -1,4 +1,4 @@
-library devtools;
+library flutter_toolkit;
 
 import 'package:args/command_runner.dart' show Command, CommandRunner;
 
@@ -12,6 +12,6 @@ final commands = <Command>[
 ];
 
 final runner = CommandRunner<int>(
-  'devtools',
+  'flutter_toolkit',
   'A set of commands to improve development productivity.',
 )..addCommands(commands);

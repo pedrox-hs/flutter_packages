@@ -4,5 +4,5 @@ Flutter packages candidate to be published and frequently used in projects maint
 
 ## Packages list
 
-- [devtools](devtools)
+- [flutter_toolkit](flutter_toolkit)
 - [logger](logger)

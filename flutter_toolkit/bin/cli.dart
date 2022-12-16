@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:devtools/devtools.dart';
+import 'package:flutter_toolkit/flutter_toolkit.dart';
 
 void main(List<String> args) async {
   exit(await runner.run(args) ?? 0);
