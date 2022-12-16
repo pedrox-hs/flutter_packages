@@ -1,7 +1,8 @@
 name: devtools
 description: A new Flutter package project.
 version: 0.1.0
-homepage:
+homepage: https://github.com/pedrox-hs/flutter_packages
+repository: https://github.com/pedrox-hs/flutter_packages/tree/main/devtools
 
 executables:
   devtools: cli

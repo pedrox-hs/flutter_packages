@@ -1,8 +1,8 @@
 name: logger
 description: Just another library for logging
 version: 0.1.0
-homepage: https://github.com/trilobitech/flutter_packages
-repository: https://github.com/trilobitech/flutter_packages/tree/main/logger
+homepage: https://github.com/pedrox-hs/flutter_packages
+repository: https://github.com/pedrox-hs/flutter_packages/tree/main/logger
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

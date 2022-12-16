@@ -18,7 +18,7 @@ Add dependency to `pubspec.yaml`:
 dependencies:
   logger:
     git:
-      url: https://github.com/trilobitech/flutter_packages.git
+      url: https://github.com/pedrox-hs/flutter_packages.git
       path: logger
 ```
 
