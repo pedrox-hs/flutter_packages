@@ -1,11 +1,12 @@
+import 'dart:io';
+
 import 'package:dotenv/dotenv.dart' show DotEnv;
 import 'package:path/path.dart' show join;
 
-final env = DotEnv(includePlatformEnvironment: true)
-  ..load(['.env.default', '.env']);
+final env = DotEnv()..load(['.env.default', '.env']);
 
 extension DotEnvExt on DotEnv {
-  String get path => '${this['PATH']}:$binDir';
+  String get path => '${Platform.environment['PATH']}:$binDir';
 
-  String get binDir => join(this['HOME']!, '.local', 'bin');
+  String get binDir => join(Platform.environment['HOME']!, '.local', 'bin');
 }
