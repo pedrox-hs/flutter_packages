@@ -1,10 +1,30 @@
+import 'package:args/args.dart';
 import 'package:args/command_runner.dart' show Command;
 
 import 'action.dart';
 
 export 'action.dart';
 
-abstract class BaseCommand extends Command<int> {
+abstract class BaseCommand<Args> extends Command<int> {
+  @override
+  final String name;
+
+  @override
+  final String description;
+
+  final IArgParserAdapter adapter;
+
+  late final args = adapter.fromResults(argResults!);
+
+  @override
+  late final argParser = adapter.parser(super.argParser);
+
+  BaseCommand({
+    required this.name,
+    required this.description,
+    required this.adapter,
+  });
+
   @override
   Future<int> run() async {
     try {
@@ -18,4 +38,10 @@ abstract class BaseCommand extends Command<int> {
   }
 
   List<Action> actions();
+}
+
+abstract class IArgParserAdapter<T> {
+  ArgParser parser(ArgParser parser);
+
+  T fromResults(ArgResults results);
 }
