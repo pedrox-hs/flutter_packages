@@ -1,8 +1,8 @@
-name: logger
+name: logger_plus
 description: Just another library for logging
 version: 0.1.0
 homepage: https://github.com/pedrox-hs/flutter_packages
-repository: https://github.com/pedrox-hs/flutter_packages/tree/main/logger
+repository: https://github.com/pedrox-hs/flutter_packages/tree/main/logger_plus
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -17,5 +17,3 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-
-flutter:

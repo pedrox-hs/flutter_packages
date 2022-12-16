@@ -1,5 +1,5 @@
 // example/main.dart
-import 'package:logger/logger.dart';
+import 'package:logger_plus/logger_plus.dart';
 
 void main() {
   Log.d('debug message');

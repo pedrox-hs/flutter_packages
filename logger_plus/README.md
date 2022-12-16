@@ -12,14 +12,10 @@ A little bit based on [Timber](https://github.com/JakeWharton/timber) library.
 
 ## Getting started
 
-Add dependency to `pubspec.yaml`:
+Add dependency to project:
 
-```yaml
-dependencies:
-  logger:
-    git:
-      url: https://github.com/pedrox-hs/flutter_packages.git
-      path: logger
+```bash
+flutter pub add logger_plus --git-url=https://github.com/pedrox-hs/flutter_packages --git-path=logger_plus
 ```
 
 ## Usage
@@ -28,7 +24,7 @@ Basic usage:
 
 ```dart
 // example/main.dart
-import 'package:logger/logger.dart';
+import 'package:logger_plus/logger_plus.dart';
 
 void main() {
   Log.d('debug message');
@@ -49,7 +45,7 @@ Alternatively, you can use a custom `Tree`, useful when you need to send errors 
 
 ```dart
 import 'package:flutter/foundation.dart';
-import 'package:logger/logger.dart';
+import 'package:logger_plus/logger_plus.dart';
 
 void main() {
     if (kDebugMode) {
@@ -73,7 +69,7 @@ class ErrorReporting extends Tree {
 ### Handle `Future` errors
 
 ```dart
-import 'package:logger/logger.dart';
+import 'package:logger_plus/logger_plus.dart';
 
 void main() async {
     await runWithError()
