@@ -13,11 +13,16 @@ class FvmFlutterRun extends IAction {
   Iterable<String> get dartDefine =>
       _env.entries.expand((e) => ['--dart-define', '${e.key}=${e.value}']);
 
+  final List<String> flutterRunArgs;
+
+  FvmFlutterRun({required this.flutterRunArgs});
+
   @override
   Future<void> call() async {
     final exitCode = await FvmCommandRunner().run([
       'flutter',
       'run',
+      ...flutterRunArgs,
       ...dartDefine,
     ]);
     exit(exitCode);
