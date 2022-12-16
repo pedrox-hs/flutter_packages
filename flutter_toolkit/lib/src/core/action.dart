@@ -1,16 +1,17 @@
+import 'dart:async';
 import 'dart:io' show stdin, exit;
 
-typedef Action = Future<void> Function();
+typedef Action = FutureOr<void> Function();
 
 abstract class IAction {
-  Future<void> call();
+  FutureOr<void> call();
 }
 
 abstract class ConditionalAction extends IAction {
   bool get shouldRun;
 
   @override
-  Future<void> call() async {
+  FutureOr<void> call() async {
     if (!shouldRun) return;
     await whenRequired();
   }
