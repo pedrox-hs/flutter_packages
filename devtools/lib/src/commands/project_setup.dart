@@ -30,6 +30,7 @@ class ProjectSetupCommand extends BaseCommand {
         LoginToFirebaseIfNeeded(),
         RemoveOldConfigFiles(),
         FlutterFireConfigure(args),
+        RemoveUnusedClientInfo(androidPackageName: args.androidPackageName),
       ];
 }
 
