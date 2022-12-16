@@ -15,6 +15,7 @@ dependencies:
   dotenv: ^4.0.1
   flutterfire_cli: <1.0.0
   fvm: <3.0.0
+  meta: ^1.8.0
   path: any
   process_run: ^0.12.3+2
 
