@@ -6,3 +6,5 @@ Flutter packages candidate to be published and frequently used in projects maint
 
 - [flutter_toolkit](flutter_toolkit)
 - [logger_plus](logger_plus)
+
+> I accept names suggestion for all packages LOL
