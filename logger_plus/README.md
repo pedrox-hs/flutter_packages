@@ -66,7 +66,9 @@ class ErrorReporting extends Tree {
 }
 ```
 
-### Handle `Future` errors
+### Display `Future` errors
+
+When you don't need to handle failure for an operation, for debug purposes or something else, you can use `catchErrorLogger` extension to display any throwed error with stacktrace:
 
 ```dart
 import 'package:logger_plus/logger_plus.dart';
