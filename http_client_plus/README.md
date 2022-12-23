@@ -1,4 +1,4 @@
-Just another library for logging.
+Just another library for http requests.
 
 A little bit based on [OkHttp](https://square.github.io/okhttp/) library.
 
@@ -27,7 +27,12 @@ import 'package:http/http.dart' as http;
 import 'package:http_client_plus/http_client_plus.dart';
 
 void main() {
-    final http.Client httpClient = InterceptableClient.withDefaultInterceptors(baseUrl: 'https://api.example.com');
+    final http.Client httpClient = InterceptableClient.withDefaultInterceptors(
+        baseUrl: 'https://api.example.com',
+        interceptors: [
+            // add custom interceptors
+        ],
+    );
     // use httpClient
 }
 ```
