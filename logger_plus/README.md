@@ -60,7 +60,7 @@ void main() {
 
 class ErrorReporting extends Tree {
     @override
-    void log(Level level, String tag, dynamic message, [StackTrace? stackTrace]) {
+    void log(Level level, String tag, dynamic message, StackTrace? stackTrace) {
         if (level.isError) {
             // send to service like crashlytics
         }
