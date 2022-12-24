@@ -9,6 +9,7 @@ import 'actions/flutterfire.dart';
 const _projectId = 'firebase-project-id';
 const _androidPackageName = 'android-package-name';
 const _iosBundleId = 'ios-bundle-id';
+const _platforms = 'platforms';
 
 class ProjectSetupCommand extends BaseCommand<IFlutterFireConfig> {
   ProjectSetupCommand()
@@ -35,17 +36,21 @@ class _ArgOptions implements IFlutterFireConfig {
   final String androidPackageName;
   @override
   final String iosBundleId;
+  @override
+  final List<String> platforms;
 
   _ArgOptions({
     required this.projectId,
     required this.androidPackageName,
     required this.iosBundleId,
+    required this.platforms,
   });
 
   factory _ArgOptions.from(ArgResults args) => _ArgOptions(
         projectId: args[_projectId],
         androidPackageName: args[_androidPackageName],
         iosBundleId: args[_iosBundleId],
+        platforms: args[_platforms],
       );
 }
 
@@ -66,6 +71,11 @@ class _Adapter extends IArgParserAdapter<IFlutterFireConfig> {
       _iosBundleId,
       envName: 'IOS_BUNDLE_ID',
       help: 'iOS bundle ID',
+    )
+    ..addMultiOption(
+      _platforms,
+      defaultsTo: ['android', 'ios'],
+      help: 'Enabled platforms',
     );
 
   @override

@@ -14,7 +14,7 @@ class FlutterFireConfigure extends IAction {
         '''
         ${Platform.executable} run flutterfire_cli:flutterfire configure -y \\
           --out=lib/firebase_options.dart \\
-          --platforms=android,ios \\
+          --platforms=${config.platforms.join(',')} \\
           --project=${config.projectId} \\
           --android-package-name=${config.androidPackageName} \\
           --ios-bundle-id=${config.iosBundleId}
@@ -64,4 +64,5 @@ abstract class IFlutterFireConfig {
   String get projectId;
   String get androidPackageName;
   String get iosBundleId;
+  List<String> get platforms;
 }
