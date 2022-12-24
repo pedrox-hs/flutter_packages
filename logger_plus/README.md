@@ -68,6 +68,18 @@ class ErrorReporting extends Tree {
 }
 ```
 
+### Show error stack trace
+
+```dart
+void main() async {
+    try {
+        throw 'an error';
+    } catch (error, stack) {
+        Log.e(error, stack);
+    }
+}
+```
+
 ### Display `Future` errors
 
 When you don't need to handle failure for an operation, for debug purposes or something else, you can use `catchErrorLogger` extension to display any throwed error with stacktrace:
