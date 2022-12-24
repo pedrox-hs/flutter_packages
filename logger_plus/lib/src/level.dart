@@ -1,4 +1,4 @@
-enum Level { debug, info, wtf, warn, error }
+enum Level { debug, info, wtf, warn, error, fatal }
 
 extension LevelExt on Level {
   String get emoji {
@@ -13,6 +13,8 @@ extension LevelExt on Level {
         return '📢';
       case Level.error:
         return '🚨';
+      case Level.fatal:
+        return '☠️';
     }
   }
 
@@ -27,9 +29,13 @@ extension LevelExt on Level {
       case Level.warn:
         return Color.yellow;
       case Level.error:
+        return Color.lightRed;
+      case Level.fatal:
         return Color.red;
     }
   }
+
+  bool get isError => this == Level.error || this == Level.fatal;
 
   String decorate(String text, {bool colorize = true}) =>
       '$emoji ${colorize ? _colorize(text) : text}';
@@ -39,6 +45,7 @@ extension LevelExt on Level {
 
 abstract class Color {
   static int red = 31;
+  static int lightRed = 91;
   static int yellow = 33;
   static int blue = 34;
   static int lightGray = 37;

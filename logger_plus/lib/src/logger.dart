@@ -33,6 +33,10 @@ abstract class Log {
     _log(Level.error, message, stackTrace);
   }
 
+  static void f(dynamic message, [StackTrace? stackTrace]) {
+    _log(Level.fatal, message, stackTrace);
+  }
+
   static void _log(Level level, dynamic message, [StackTrace? stackTrace]) {
     _tree?.log(level, _tree?.tag ?? 'LOG', message, stackTrace);
   }
