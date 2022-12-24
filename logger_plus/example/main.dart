@@ -7,4 +7,6 @@ void main() {
   Log.wtf('wtf message');
   Log.w('warn message');
   Log.e('error message');
+  Log.f('fatal error message');
+  Log.tag('custom tag').d('custom tag message');
 }

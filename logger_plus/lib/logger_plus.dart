@@ -2,4 +2,4 @@ library logger_plus;
 
 export 'src/logger.dart';
 export 'src/level.dart' hide Color;
-export 'src/tree.dart';
+export 'src/utils.dart';

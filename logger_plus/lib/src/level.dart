@@ -14,7 +14,7 @@ extension LevelExt on Level {
       case Level.error:
         return '🚨';
       case Level.fatal:
-        return '☠️';
+        return '☠️ ';
     }
   }
 
