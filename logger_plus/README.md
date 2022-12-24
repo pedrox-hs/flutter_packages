@@ -32,12 +32,14 @@ void main() {
   Log.wtf('wtf message');
   Log.w('warn message');
   Log.e('error message');
+  Log.f('fatal error message');
+  Log.tag('custom tag').d('debug message');
 }
 ```
 
 This print something like:
 
-![messages](demo/messages.png?raw=true)
+<img src="demo/messages.png?raw=true&v=2" alt="messages preview" width="600"/>
 
 ### Use custom `Tree` implementation
 
@@ -59,7 +61,7 @@ void main() {
 class ErrorReporting extends Tree {
     @override
     void log(Level level, String tag, dynamic message, [StackTrace? stackTrace]) {
-        if (level == Level.error) {
+        if (level.isError) {
             // send to service like crashlytics
         }
     }
