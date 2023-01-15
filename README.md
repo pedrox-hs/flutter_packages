@@ -4,9 +4,10 @@ Flutter packages candidate to be published and frequently used in projects maint
 
 ## Packages list
 
+- [error_adapter](error_adapter)
 - [flutter_toolkit](flutter_toolkit)
 - [http_client_plus](http_client_plus)
 - [logger_plus](logger_plus)
 - [state_action_bloc](state_action_bloc)
 
-> I accept names suggestion for all packages
+> All PRs and names suggestions are welcome :)
