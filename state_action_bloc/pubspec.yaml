@@ -1,7 +1,8 @@
 name: state_action_bloc
 description: A new Flutter package project.
 version: 0.1.0
-homepage:
+homepage: https://github.com/pedrox-hs/flutter_packages
+repository: https://github.com/pedrox-hs/flutter_packages/tree/main/state_action_bloc
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
