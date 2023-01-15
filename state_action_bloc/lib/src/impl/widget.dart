@@ -14,11 +14,11 @@ typedef WidgetActionHandler<A extends IAction> = FutureOr Function(
 class _StateActionWidget<B extends BlocBase, S extends IState,
     A extends IAction> extends StatelessWidget {
   const _StateActionWidget({
-    super.key,
+    Key? key,
     this.bloc,
     required this.stateBuilder,
     this.actionHandler,
-  });
+  }) : super(key: key);
 
   final B? bloc;
   final WidgetStateBuilder<S> stateBuilder;

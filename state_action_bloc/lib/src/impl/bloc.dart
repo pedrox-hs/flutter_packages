@@ -20,7 +20,7 @@ abstract class _StateBloc<S extends IState> extends _BlocBase
 }
 
 abstract class _BlocBase extends Cubit {
-  _BlocBase(super.initialState) {
+  _BlocBase(initialState) : super(initialState) {
     load();
   }
 

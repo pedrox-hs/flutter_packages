@@ -10,11 +10,11 @@ part 'impl/bloc.dart';
 
 abstract class StateActionBloc<S extends IState, A extends IAction>
     extends _StateBloc<S> with _ActionBlocMixin<A, S> {
-  StateActionBloc(super.initialState);
+  StateActionBloc(initialState) : super(initialState);
 }
 
 abstract class StateBloc<S extends IState> extends _StateBloc<S> {
-  StateBloc(super.initialState);
+  StateBloc(initialState) : super(initialState);
 }
 
 abstract class ActionBloc<A extends IAction> extends _BlocBase
