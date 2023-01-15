@@ -11,7 +11,7 @@ TODO: List what your package can do. Maybe include images, gifs, or videos.
 Add dependency to project:
 
 ```bash
-flutter pub add http_client_plus --git-url=https://github.com/pedrox-hs/flutter_packages --git-path=state_action_bloc
+flutter pub add state_action_bloc --git-url=https://github.com/pedrox-hs/flutter_packages --git-path=state_action_bloc
 ```
 
 ## Usage
