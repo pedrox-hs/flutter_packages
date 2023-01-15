@@ -7,10 +7,10 @@ import '../../core/action.dart';
 import '../../env.dart';
 import '../../utils/shell.dart';
 
-class PrintDartDefine extends IAction {
-  final IDartDefineConfig source;
+class PrintDartDefine implements IAction {
+  const PrintDartDefine(this.source);
 
-  PrintDartDefine(this.source);
+  final IDartDefineConfig source;
 
   @override
   void call() {

@@ -3,10 +3,10 @@ import 'package:http/http.dart';
 
 import '../interceptor.dart';
 
-class AssetsInterceptor extends HttpInterceptor {
-  AssetsInterceptor({this.assetsRootPath = 'assets'});
+class AssetsInterceptor implements HttpInterceptor {
+  const AssetsInterceptor({this.assetsRootPath = 'assets'});
 
-  String assetsRootPath;
+  final String assetsRootPath;
 
   @override
   Future<StreamedResponse> intercept(BaseRequest request, Next next) async {

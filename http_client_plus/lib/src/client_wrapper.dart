@@ -1,7 +1,9 @@
 import 'package:http/http.dart';
+import 'package:meta/meta.dart';
 
+@immutable
 class ClientWrapper {
-  ClientWrapper(this.baseClient);
+  const ClientWrapper(this.baseClient);
 
   final Client baseClient;
 

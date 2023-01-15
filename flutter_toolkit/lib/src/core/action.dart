@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'dart:io' show stdin, exit;
 
+import 'package:meta/meta.dart';
+
 typedef Action = FutureOr<void> Function();
 
+@immutable
 abstract class IAction {
   FutureOr<void> call();
 }
 
-abstract class ConditionalAction extends IAction {
+@immutable
+abstract class ConditionalAction implements IAction {
   bool get shouldRun;
 
   @override
@@ -19,6 +23,7 @@ abstract class ConditionalAction extends IAction {
   Future<void> whenRequired();
 }
 
+@immutable
 abstract class GrantedAction extends ConditionalAction {
   void requestPermission();
 

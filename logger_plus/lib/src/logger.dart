@@ -10,6 +10,8 @@ import 'utils.dart';
 final Log = _RootLogger();
 
 abstract class Logger {
+  const Logger();
+
   @visibleForOverriding
   void print(Level level, dynamic message, StackTrace? stackTrace);
 
@@ -39,7 +41,7 @@ abstract class Logger {
 }
 
 class _RootLogger extends Logger {
-  Tree? _tree = kDebugMode ? DebugTree() : null;
+  Tree? _tree = kDebugMode ? const DebugTree() : null;
 
   void plant(Tree? tree) {
     _tree = tree;
@@ -53,8 +55,9 @@ class _RootLogger extends Logger {
   }
 }
 
+@immutable
 abstract class Tree extends Logger {
-  Tree([this.explicitTag]);
+  const Tree([this.explicitTag]);
 
   final String? explicitTag;
 
@@ -72,7 +75,7 @@ abstract class Tree extends Logger {
 }
 
 class DebugTree extends Tree {
-  DebugTree([String? tag]) : super(tag);
+  const DebugTree([String? tag]) : super(tag);
 
   @override
   void log(Level level, String tag, dynamic message, StackTrace? stackTrace) {

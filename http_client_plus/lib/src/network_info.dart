@@ -4,7 +4,7 @@ abstract class INetworkInfo {
   Future<bool> get isConnected;
 }
 
-class NetworkInfo extends INetworkInfo {
+class NetworkInfo implements INetworkInfo {
   NetworkInfo([Connectivity? connectivity])
       : _connectivity = connectivity ?? Connectivity();
 

@@ -6,6 +6,12 @@ import 'action.dart';
 export 'action.dart';
 
 abstract class BaseCommand<Args> extends Command<int> {
+  BaseCommand({
+    required this.name,
+    required this.description,
+    required this.adapter,
+  });
+
   @override
   final String name;
 
@@ -18,12 +24,6 @@ abstract class BaseCommand<Args> extends Command<int> {
 
   @override
   late final argParser = adapter.parser(super.argParser);
-
-  BaseCommand({
-    required this.name,
-    required this.description,
-    required this.adapter,
-  });
 
   @override
   Future<int> run() async {

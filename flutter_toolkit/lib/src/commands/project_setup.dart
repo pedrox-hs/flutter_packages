@@ -30,16 +30,7 @@ class ProjectSetupCommand extends BaseCommand<IFlutterFireConfig> {
 }
 
 class _ArgOptions implements IFlutterFireConfig {
-  @override
-  final String projectId;
-  @override
-  final String androidPackageName;
-  @override
-  final String iosBundleId;
-  @override
-  final List<String> platforms;
-
-  _ArgOptions({
+  const _ArgOptions({
     required this.projectId,
     required this.androidPackageName,
     required this.iosBundleId,
@@ -52,6 +43,15 @@ class _ArgOptions implements IFlutterFireConfig {
         iosBundleId: args[_iosBundleId],
         platforms: args[_platforms],
       );
+
+  @override
+  final String projectId;
+  @override
+  final String androidPackageName;
+  @override
+  final String iosBundleId;
+  @override
+  final List<String> platforms;
 }
 
 class _Adapter extends IArgParserAdapter<IFlutterFireConfig> {

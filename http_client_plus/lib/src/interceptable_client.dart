@@ -14,12 +14,6 @@ class InterceptableClient extends BaseClient {
     Client? baseClient,
   }) : _client = ClientWrapper(baseClient ?? Client());
 
-  final ClientWrapper _client;
-  final Iterable<HttpInterceptor> interceptors;
-
-  ChainInterceptor get _chain =>
-      interceptors.toList().reversed.fold(_client, _chainInterceptor);
-
   factory InterceptableClient.withDefaultInterceptors({
     Uri? baseUrl,
     Client? baseClient,
@@ -28,12 +22,18 @@ class InterceptableClient extends BaseClient {
       InterceptableClient(
         baseClient: baseClient,
         interceptors: [
-          AssetsInterceptor(),
+          const AssetsInterceptor(),
           ConnectionInterceptor(),
           if (baseUrl != null) ResolveBaseUrlInterceptor(baseUrl),
           ...interceptors,
         ],
       );
+
+  final ClientWrapper _client;
+  final Iterable<HttpInterceptor> interceptors;
+
+  ChainInterceptor get _chain =>
+      interceptors.toList().reversed.fold(_client, _chainInterceptor);
 
   @override
   Future<StreamedResponse> send(BaseRequest request) => _chain.call(request);

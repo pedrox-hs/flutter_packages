@@ -1,5 +1,1 @@
-include: package:flutter_lints/flutter.yaml
-
-linter:
-  rules:
-    prefer_relative_imports: true
+include: ../flutter_lints.yaml

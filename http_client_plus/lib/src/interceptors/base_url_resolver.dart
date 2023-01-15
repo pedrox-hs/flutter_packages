@@ -3,8 +3,8 @@ import 'package:http/http.dart';
 import '../ext/request.dart';
 import '../interceptor.dart';
 
-class ResolveBaseUrlInterceptor extends HttpInterceptor {
-  ResolveBaseUrlInterceptor(this.baseUrl);
+class ResolveBaseUrlInterceptor implements HttpInterceptor {
+  const ResolveBaseUrlInterceptor(this.baseUrl);
 
   final Uri baseUrl;
 

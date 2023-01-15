@@ -4,10 +4,10 @@ import 'dart:io' show File, Platform;
 import '../../core/action.dart';
 import '../../utils/shell.dart';
 
-class FlutterFireConfigure extends IAction {
-  final IFlutterFireConfig config;
+class FlutterFireConfigure implements IAction {
+  const FlutterFireConfigure(this.config);
 
-  FlutterFireConfigure(this.config);
+  final IFlutterFireConfig config;
 
   @override
   Future<void> call() => exec(
@@ -37,13 +37,13 @@ class RemoveOldConfigFiles extends IAction {
 }
 
 class RemoveUnusedClientInfo extends IAction {
-  late final File configFile = File('android/app/google-services.json');
-
-  final String androidPackageName;
-
   RemoveUnusedClientInfo({
     required this.androidPackageName,
   });
+
+  late final File configFile = File('android/app/google-services.json');
+
+  final String androidPackageName;
 
   @override
   Future<void> call() async {

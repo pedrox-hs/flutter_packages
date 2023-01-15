@@ -10,6 +10,7 @@ typedef WidgetActionHandler<A extends IAction> = FutureOr Function(
   A action,
 );
 
+@immutable
 class _StateActionWidget<B extends BlocBase, S extends IState,
     A extends IAction> extends StatelessWidget {
   const _StateActionWidget({

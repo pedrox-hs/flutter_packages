@@ -24,14 +24,7 @@ class PrintDartDefineCommand extends BaseCommand<IDartDefineConfig> {
 }
 
 class _ArgOptions implements IDartDefineConfig {
-  @override
-  final List<String> files;
-  @override
-  final List<String> platformExpr;
-  @override
-  final String outputSeparator;
-
-  _ArgOptions({
+  const _ArgOptions({
     required this.files,
     required this.platformExpr,
     required this.outputSeparator,
@@ -42,6 +35,13 @@ class _ArgOptions implements IDartDefineConfig {
         platformExpr: args[_fromPlatformExpr],
         outputSeparator: args[_separator],
       );
+
+  @override
+  final List<String> files;
+  @override
+  final List<String> platformExpr;
+  @override
+  final String outputSeparator;
 }
 
 class _Adapter extends IArgParserAdapter<IDartDefineConfig> {
