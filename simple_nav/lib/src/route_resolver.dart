@@ -1,24 +1,21 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-typedef PageBuilder = Widget Function(
-  BuildContext context,
+typedef RouteBuilder = Route Function(
+  RouteSettings settings,
   RouteExtras extras,
 );
 
 class RouteResolver {
   RouteResolver(this.routes);
 
-  final Map<String, PageBuilder> routes;
+  final Map<String, RouteBuilder> routes;
 
   Route<dynamic>? call(RouteSettings settings) {
     final result = _findRoute(settings.name!);
     if (result == null) return null;
 
     final extras = RouteExtras(result.arguments, settings.arguments);
-    return MaterialPageRoute(
-      settings: settings,
-      builder: (context) => result.pageBuilder(context, extras),
-    );
+    return result.routeBuilder(settings, extras);
   }
 
   PageBuilderResult? _findRoute(String routeName) {
@@ -53,14 +50,14 @@ class RouteResolver {
 }
 
 class PageBuilderResult {
-  PageBuilderResult(this.pageBuilder, [this.arguments = const {}]);
+  const PageBuilderResult(this.routeBuilder, [this.arguments = const {}]);
 
-  final PageBuilder pageBuilder;
+  final RouteBuilder routeBuilder;
   final Map<String, dynamic> arguments;
 }
 
 class RouteExtras {
-  RouteExtras(this.arguments, this.data);
+  const RouteExtras(this.arguments, this.data);
 
   final Map<String, dynamic> arguments;
   final dynamic data;
