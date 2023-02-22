@@ -14,7 +14,6 @@ extension RequestExt<T extends BaseRequest> on T {
         ..encoding = other.encoding
         ..bodyBytes = other.bodyBytes;
     } else if (other is MultipartRequest) {
-      other.send();
       newRequest = MultipartRequest(method ?? other.method, url ?? other.url)
         ..fields.addAll(other.fields)
         ..files.addAll(other.files);
