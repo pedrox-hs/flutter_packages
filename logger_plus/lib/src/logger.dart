@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
+import 'package:stack_trace/stack_trace.dart';
 
 import 'level.dart';
 import 'utils.dart';
@@ -87,4 +88,16 @@ class DebugTree extends Tree {
 
   @override
   Tree copyWith(String tag) => DebugTree(tag);
+}
+
+OnError get catchErrorLogger {
+  Trace currentTrace = Trace.current(1);
+
+  return (Object exception, StackTrace? stackTrace) async {
+    final trace = Trace.from(stackTrace ?? Trace.current());
+    if (!trace.frames.contains(currentTrace.frames.first)) {
+      stackTrace = Trace(trace.frames + currentTrace.frames).vmTrace;
+    }
+    Log.e(exception, stackTrace);
+  };
 }
