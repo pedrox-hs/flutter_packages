@@ -7,7 +7,12 @@ analyzer:
 
 linter:
   rules:
-    prefer_single_quotes: true
-    prefer_relative_imports: true
-    sort_constructors_first: true
-    directives_ordering: true
+    - always_declare_return_types
+    - directives_ordering
+    - discarded_futures
+    - join_return_with_assignment
+    - prefer_single_quotes
+    - prefer_relative_imports
+    - require_trailing_commas
+    - sort_constructors_first
+    - unawaited_futures
