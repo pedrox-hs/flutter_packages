@@ -20,13 +20,19 @@ abstract class _StateBloc<S extends IState> extends _BlocBase
 }
 
 abstract class _BlocBase extends Cubit {
-  _BlocBase(initialState) : super(initialState) {
-    _loadSync();
-  }
+  _BlocBase(initialState) : super(initialState);
 
   @override
   @internal
   dynamic get state => super.state;
+
+  bool _isLoadPending = true;
+
+  @override
+  Stream get stream {
+    _loadIfNeeded();
+    return super.stream;
+  }
 
   @protected
   final subscriptions = CompositeSubscription();
@@ -45,8 +51,11 @@ abstract class _BlocBase extends Cubit {
     return super.close();
   }
 
-  void _loadSync() async {
-    load();
+  void _loadIfNeeded() async {
+    if (_isLoadPending) {
+      _isLoadPending = false;
+      load();
+    }
   }
 }
 
