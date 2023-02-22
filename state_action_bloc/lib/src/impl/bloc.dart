@@ -21,19 +21,19 @@ abstract class _StateBloc<S extends IState> extends _BlocBase
 
 abstract class _BlocBase extends Cubit {
   _BlocBase(initialState) : super(initialState) {
-    load();
+    _loadSync();
   }
 
   @override
   @internal
-  get state => super.state;
+  dynamic get state => super.state;
 
   @protected
   final subscriptions = CompositeSubscription();
 
   @protected
   @visibleForOverriding
-  Future<void> load() async {}
+  FutureOr<void> load() {}
 
   @override
   @internal
@@ -41,8 +41,12 @@ abstract class _BlocBase extends Cubit {
 
   @override
   Future<void> close() async {
-    subscriptions.dispose();
+    await subscriptions.dispose();
     return super.close();
+  }
+
+  void _loadSync() async {
+    load();
   }
 }
 

@@ -7,7 +7,7 @@ final pubspec = Pubspec();
 class Pubspec {
   late final dynamic _data = _loadYaml('pubspec.yaml');
 
-  operator [](String key) => _data[key];
+  dynamic operator [](String key) => _data[key];
 
   String get name => this['name'];
 }
