@@ -1,0 +1,1 @@
+library auto_route_generator;
