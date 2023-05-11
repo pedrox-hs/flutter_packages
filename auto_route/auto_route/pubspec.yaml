@@ -17,7 +17,3 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-
-dependency_overrides: 
-  simple_nav:
-    path: ../../simple_nav

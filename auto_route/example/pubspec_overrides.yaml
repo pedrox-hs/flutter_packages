@@ -1,0 +1,9 @@
+dependency_overrides:
+  auto_route:
+    path: ../auto_route
+  auto_route_generator:
+    path: ../generator
+  simple_nav:
+    path: ../../simple_nav
+  logger_plus:
+    path: ../../logger_plus

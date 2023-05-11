@@ -1,0 +1,3 @@
+dependency_overrides:
+  simple_nav:
+    path: ../../simple_nav
