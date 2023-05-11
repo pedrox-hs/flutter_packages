@@ -1,19 +1,30 @@
+extension UriExt on Uri {
+  /// Returns a normalized package URI.
+  Uri normalizePackageUri() => scheme == 'package'
+      ? replace(
+          pathSegments: <String>[
+            pathSegments.first,
+            'lib',
+            ...pathSegments.skip(1),
+          ],
+        )
+      : this;
+}
 
-
-import 'package:stack_trace/stack_trace.dart';
-
-typedef OnError<T> = T Function(Object exception, StackTrace? stack);
-
-String tagFromCaller() {
-  final trace = Trace.current(1);
-  final caller = trace.frames.first;
-
-  String location = trace.frames
-      .firstWhere(
-        (el) => el.library != caller.library,
-        orElse: () => caller,
-      )
-      .location;
-
-  return location;
+extension StringExt on String {
+  /// Returns a string with the given [width] by padding it with [padding].
+  /// If the string is already longer than [width], it is returned unchanged.
+  /// If the padding cannot be evenly distributed on both sides, the right side
+  /// gets the extra padding.
+  /// 
+  /// Example:
+  /// ```
+  /// 'hello'.padBoth(10, '*') == '***hello**'
+  /// ```
+  String padBoth(int width, [String padding = ' ']) {
+    if (length >= width) return this;
+    final padLen = width - length;
+    final padRem = padLen % 2;
+    return padding * (padLen ~/ 2) + this + padding * (padLen ~/ 2 + padRem);
+  }
 }

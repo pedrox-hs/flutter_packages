@@ -1,0 +1,3 @@
+dependency_overrides:
+  logger_plus:
+    path: ../

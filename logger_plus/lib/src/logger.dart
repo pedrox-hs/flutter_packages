@@ -1,103 +1,50 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
+import 'package:logging/logging.dart';
 import 'package:stack_trace/stack_trace.dart';
 
-import 'level.dart';
-import 'utils.dart';
+import 'recorder/log_recorder.dart';
 
-// ignore: non_constant_identifier_names
-final Log = _RootLogger();
+class Log {
+  static final _log = Logger.detached('logger_plus');
 
-abstract class Logger {
-  const Logger();
+  static bool forceStackTrace = false;
 
-  @visibleForOverriding
-  void print(Level level, dynamic message, StackTrace? stackTrace);
+  static StackTrace? get _stackTrace =>
+      forceStackTrace ? Trace.current(2) : null;
 
-  void d(dynamic message) {
-    print(Level.debug, message, null);
+  static void v(Object? message, [StackTrace? stackTrace]) {
+    _log.finest(message, stackTrace ?? _stackTrace);
   }
 
-  void i(dynamic message) {
-    print(Level.info, message, null);
+  static void d(Object? message, [StackTrace? stackTrace]) {
+    _log.finer(message, stackTrace ?? _stackTrace);
   }
 
-  void wtf(dynamic message) {
-    print(Level.wtf, message, null);
+  static void ok(Object? message, [StackTrace? stackTrace]) {
+    _log.fine(message, stackTrace ?? _stackTrace);
   }
 
-  void w(dynamic message) {
-    print(Level.warn, message, null);
+  static void config(Object? message, [StackTrace? stackTrace]) {
+    _log.config(message, stackTrace ?? _stackTrace);
   }
 
-  void e(dynamic message, [StackTrace? stackTrace]) {
-    print(Level.error, message, stackTrace);
+  static void i(Object? message, [StackTrace? stackTrace]) {
+    _log.info(message, stackTrace ?? _stackTrace);
   }
 
-  void f(dynamic message, [StackTrace? stackTrace]) {
-    print(Level.fatal, message, stackTrace);
-  }
-}
-
-class _RootLogger extends Logger {
-  Tree? _tree = kDebugMode ? const DebugTree() : null;
-
-  void plant(Tree? tree) {
-    _tree = tree;
+  static void w(Object? message, [StackTrace? stackTrace]) {
+    _log.warning(message, stackTrace ?? _stackTrace);
   }
 
-  Logger tag(String tag) => _tree?.copyWith(tag) ?? this;
-
-  @override
-  void print(Level level, message, StackTrace? stackTrace) {
-    _tree?.print(level, message, stackTrace);
-  }
-}
-
-@immutable
-abstract class Tree extends Logger {
-  const Tree([this.explicitTag]);
-
-  final String? explicitTag;
-
-  String get tag => explicitTag ?? tagFromCaller();
-
-  @override
-  void print(Level level, message, StackTrace? stackTrace) {
-    log(level, tag, message, stackTrace);
+  static void e(Object? message, [StackTrace? stackTrace]) {
+    _log.severe(message, stackTrace ?? Trace.current(1));
   }
 
-  @visibleForOverriding
-  void log(Level level, String tag, dynamic message, StackTrace? stackTrace);
-
-  Tree copyWith(String tag);
-}
-
-class DebugTree extends Tree {
-  const DebugTree([String? tag]) : super(tag);
-
-  @override
-  void log(Level level, String tag, dynamic message, StackTrace? stackTrace) {
-    final stackText = stackTrace != null ? '\n${stackTrace.toString()}' : '';
-    tag = level.decorate(tag, colorize: !Platform.isIOS);
-
-    debugPrint('$tag: ${message.toString()}$stackText');
+  static void wtf(Object? message, [StackTrace? stackTrace]) {
+    _log.shout(message, stackTrace ?? Trace.current(1));
   }
 
-  @override
-  Tree copyWith(String tag) => DebugTree(tag);
-}
-
-OnError get catchErrorLogger {
-  Trace currentTrace = Trace.current(1);
-
-  return (Object exception, StackTrace? stackTrace) async {
-    final trace = Trace.from(stackTrace ?? Trace.current());
-    if (!trace.frames.contains(currentTrace.frames.first)) {
-      stackTrace = Trace(trace.frames + currentTrace.frames).vmTrace;
-    }
-    Log.e(exception, stackTrace);
-  };
+  static void addRecorder(LogRecorder recorder) {
+    forceStackTrace = forceStackTrace || recorder.forceStackTrace;
+    _log.onRecord.listen(recorder.record);
+  }
 }

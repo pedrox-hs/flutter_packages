@@ -1,0 +1,10 @@
+name: logger_plus_example
+description: Logger Plus example
+publish_to: none
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  logging: ^1.1.1
+  logger_plus: ^0.1.0
