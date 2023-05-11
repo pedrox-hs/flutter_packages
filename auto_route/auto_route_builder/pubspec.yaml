@@ -1,8 +1,8 @@
-name: auto_route
+name: auto_route_builder
 description: A new Flutter package project.
 version: 0.1.0
 homepage: https://github.com/pedrox-hs/flutter_packages
-repository: https://github.com/pedrox-hs/flutter_packages/tree/main/auto_route
+repository: https://github.com/pedrox-hs/flutter_packages/tree/main/auto_route/auto_route_builder
 
 environment:
   sdk: '>=2.19.6 <3.0.0'
