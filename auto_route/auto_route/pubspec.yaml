@@ -1,0 +1,23 @@
+name: auto_route
+description: A new Flutter package project.
+version: 0.1.0
+homepage: https://github.com/pedrox-hs/flutter_packages
+repository: https://github.com/pedrox-hs/flutter_packages/tree/main/auto_route/auto_route
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  simple_nav: ^0.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+dependency_overrides: 
+  simple_nav:
+    path: ../../simple_nav

@@ -12,9 +12,14 @@ dependencies:
   build:
   collection:
   source_gen:
+  auto_route: 0.1.0
 
 dev_dependencies:
   build_test:
   lints:
   source_gen_test:
   test:
+
+dependency_overrides:
+  auto_route:
+    path: ../auto_route
