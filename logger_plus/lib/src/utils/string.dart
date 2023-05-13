@@ -1,22 +1,9 @@
-extension UriExt on Uri {
-  /// Returns a normalized package URI.
-  Uri normalizePackageUri() => scheme == 'package'
-      ? replace(
-          pathSegments: <String>[
-            pathSegments.first,
-            'lib',
-            ...pathSegments.skip(1),
-          ],
-        )
-      : this;
-}
-
 extension StringExt on String {
   /// Returns a string with the given [width] by padding it with [padding].
   /// If the string is already longer than [width], it is returned unchanged.
   /// If the padding cannot be evenly distributed on both sides, the right side
   /// gets the extra padding.
-  /// 
+  ///
   /// Example:
   /// ```
   /// 'hello'.padBoth(10, '*') == '***hello**'
@@ -27,4 +14,20 @@ extension StringExt on String {
     final padRem = padLen % 2;
     return padding * (padLen ~/ 2) + this + padding * (padLen ~/ 2 + padRem);
   }
+
+  String formatWithMap(Map<String, dynamic> params) =>
+      formatWith((key) => params[key]);
+
+  String formatWith(Function(String key) provider) => replaceAllMapped(
+        RegExp(r'{(.*?)}'),
+        (match) => '${provider(match[1]!) ?? match.input}',
+      );
+
+  String formatWithParameterized(
+    Function(String key, List<String> params) provider,
+  ) =>
+      formatWith((key) {
+        final params = key.split('|');
+        return provider(params.first, params.skip(1).toList());
+      });
 }

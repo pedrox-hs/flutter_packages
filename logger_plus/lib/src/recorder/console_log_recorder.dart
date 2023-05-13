@@ -1,29 +1,22 @@
-import 'dart:io';
-
 import 'package:logging/logging.dart';
 
-import '../utils.dart';
-import 'log_recorder.dart';
+import '../log_recorder.dart';
+import '../utils/log_record.dart';
+import '../utils/string.dart';
 
 class ConsoleLogRecorder extends LogRecorder {
   @override
-  void record(LogRecord record) {
+  String record(LogRecord record) {
     final tag = record.level.name.padBoth(9);
-    final message = '[$tag] ${record.message}\n';
+    final message = '[$tag] ${record.message}';
 
-    if (record.level >= Level.SEVERE) {
-      final buffer = StringBuffer(message);
+    if (record.level < Level.SEVERE) return message;
 
-      final stackTrace = getStackTrace(record.error, record.stackTrace);
-      if (record.error != null && record.error is! StackTrace) {
-        buffer.writeln(record.error);
-      }
+    final buffer = StringBuffer(message);
 
-      if (stackTrace != null) buffer.writeln(stackTrace.vmTrace.toString());
+    buffer.writeln(record.error ?? '');
+    buffer.write(record.trace ?? '');
 
-      stderr.write(buffer);
-    } else {
-      stdout.write(message);
-    }
+    return buffer.toString();
   }
 }
