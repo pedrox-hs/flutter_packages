@@ -14,7 +14,12 @@ class RouteResolver {
     final result = _findRoute(settings.name!);
     if (result == null) return null;
 
-    final extras = RouteExtras(result.arguments, settings.arguments);
+    final extras = RouteExtras(
+      pathParameters: result.pathParameters,
+      queryParameters: result.queryParameters,
+      data: settings.arguments,
+    );
+
     return result.routeBuilder(settings, extras);
   }
 
@@ -22,7 +27,10 @@ class RouteResolver {
     final uri = Uri.parse(routeName);
 
     if (routes.containsKey(uri.path)) {
-      return PageBuilderResult(routes[uri.path]!, {...uri.queryParameters});
+      return PageBuilderResult(
+        routes[uri.path]!,
+        queryParameters: uri.queryParameters,
+      );
     }
 
     for (final String route in routes.keys) {
@@ -36,12 +44,13 @@ class RouteResolver {
       if (match == null) continue;
 
       final arguments = {
-        for (final key in match.groupNames) key: match.namedGroup(key)
+        for (final key in match.groupNames) key: match.namedGroup(key)!
       };
 
       return PageBuilderResult(
         routes[route]!,
-        {...uri.queryParameters, ...arguments},
+        queryParameters: uri.queryParameters,
+        pathParameters: arguments,
       );
     }
 
@@ -50,15 +59,25 @@ class RouteResolver {
 }
 
 class PageBuilderResult {
-  const PageBuilderResult(this.routeBuilder, [this.arguments = const {}]);
+  const PageBuilderResult(
+    this.routeBuilder, {
+    this.queryParameters = const {},
+    this.pathParameters = const {},
+  });
 
   final RouteBuilder routeBuilder;
-  final Map<String, dynamic> arguments;
+  final Map<String, String> pathParameters;
+  final Map<String, String> queryParameters;
 }
 
 class RouteExtras {
-  const RouteExtras(this.arguments, this.data);
+  const RouteExtras({
+    this.pathParameters = const {},
+    this.queryParameters = const {},
+    this.data,
+  });
 
-  final Map<String, dynamic> arguments;
-  final dynamic data;
+  final Map<String, String> pathParameters;
+  final Map<String, String> queryParameters;
+  final Object? data;
 }
