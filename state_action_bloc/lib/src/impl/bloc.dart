@@ -62,7 +62,7 @@ abstract class _BlocBase extends Cubit {
 mixin _ActionBlocMixin<A extends IAction, S> on BlocBase
     implements _RealStateType<S> {
   void sendAction(A action) {
-    // workarount to enable same action dispatch
+    // workaround to enable same action dispatch
     emit(action);
     emit(currentState);
   }

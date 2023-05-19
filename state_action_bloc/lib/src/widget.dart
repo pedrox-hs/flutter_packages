@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger_plus/logger_plus.dart';
 import 'package:meta/meta.dart';
 
 import 'bloc.dart';
+import 'log.dart';
 import 'state.dart';
 
 part 'impl/widget.dart';

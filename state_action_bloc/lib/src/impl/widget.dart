@@ -48,7 +48,7 @@ class _StateActionWidget<B extends BlocBase, S extends IState,
     try {
       await actionHandler?.call(context, action as A);
     } catch (e, stack) {
-      Log.e(e, stack);
+      log.severe('Error on handle action', e, stack);
     }
   }
 }
