@@ -3,5 +3,5 @@ dependency_overrides:
     path: ../auto_route
   simple_nav:
     path: ../../simple_nav
-  logger_plus:
-    path: ../../logger_plus
+  logify:
+    path: ../../logify

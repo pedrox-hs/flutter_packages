@@ -305,13 +305,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  logger_plus:
-    dependency: "direct overridden"
-    description:
-      path: "../../logger_plus"
-      relative: true
-    source: path
-    version: "1.0.0"
   logging:
     dependency: transitive
     description:
@@ -320,6 +313,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  logify:
+    dependency: "direct overridden"
+    description:
+      path: "../../logify"
+      relative: true
+    source: path
+    version: "1.0.0"
   matcher:
     dependency: transitive
     description:
