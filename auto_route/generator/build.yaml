@@ -1,0 +1,23 @@
+builders:
+  get_route_definition:
+    import: "package:auto_route_generator/auto_route_generator.dart"
+    builder_factories: ["RouteDefinitionsBuilder.create"]
+    # The `partId` argument to `SharedPartBuilder` is "some_cool_builder"
+    build_extensions: {".dart": [".routes.yaml"]}
+    auto_apply: dependents
+    build_to: cache
+    # build_to: source
+    # To copy the `.g.part` content into `.g.dart` in the source tree
+    # applies_builders: ["source_gen:combining_builder"]
+
+post_process_builders:
+
+
+# targets:
+#   $default:
+#     builders:
+#       source_gen:combining_builder:
+#         options:
+#           # https://github.com/dart-lang/source_gen#preamble
+#           preamble: |
+#                 // Que legal!
