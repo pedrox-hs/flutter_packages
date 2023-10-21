@@ -8,7 +8,7 @@ A little bit based on [Timber](https://github.com/JakeWharton/timber) library.
 
 - show logs friendly using tags with call location, colors and emoji;
 - open to implement your custom log output;
-- written on top of [logging](https://pu) library.
+- written on top of [logging](https://pub.dev/packages/logging) library.
 
 ## Getting started
 
@@ -24,12 +24,39 @@ flutter pub add logger_plus --git-url=https://github.com/pedrox-hs/flutter_packa
 // Import the package
 import 'package:logger_plus/logger_plus.dart';
 
-// In the main file or entrypoint add a recorder
-Log.listen(ConsoleLogRecorder());
+void main() {
+  // In the main file or entrypoint add a recorder just once
+  Log.listen(ConsoleLogRecorder());
 
-// Now, you can start using
-Log.d('debug message');
+  // Now, you can start using
+  Log.i('info message');
+}
 ```
+
+You can also integrate with logging library:
+
+```dart
+import 'package:logger_plus/logger_plus.dart';
+import 'package:logging/logging.dart';
+
+void main() {
+  // Change the logging level
+  Logger.root.level = Level.ALL; // defaults to Level.INFO
+  // Add a recorder
+  Logger.root.onRecord.listen(DebugLogRecorder());
+
+  // Now, you can start using
+  Log.i('info message');
+
+  // Or use the logging library
+  final logger = Logger('my_logger');
+  logger.info('info message');
+}
+```
+All other packages that use logging will also be handled by `DebugLogRecorder`.
+
+For more details, see the [example](example) project and the logging library [documentation](https://pub.dev/packages/logging).
+
 
 ### `LogRecorder`
 
@@ -44,12 +71,12 @@ Output:
 
 <img src="demo/simple.png?raw=true&v=1" alt="messages preview" width="600"/>
 
-**ConsoleLogRecorder**
+**DebugLogRecorder**
 
 ```dart
 Log.listen(DebugLogRecorder());
 ```
 Output:
 
-<img src="demo/colored.png?raw=true&v=1" alt="messages preview" width="600"/>
+<img src="demo/colored.png?raw=true&v=2" alt="messages preview" width="600"/>
 
