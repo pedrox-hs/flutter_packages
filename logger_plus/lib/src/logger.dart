@@ -5,8 +5,10 @@ import 'package:stack_trace/stack_trace.dart';
 
 import 'log_recorder.dart';
 
+final libLoggerName = 'logging_plus';
+
 class Log {
-  static final _log = Logger('logger_plus');
+  static final _log = Logger(libLoggerName);
 
   static bool forceStackTrace = false;
 

@@ -55,5 +55,5 @@ class DebugLogRecorder extends LogRecorder with LogRecorderTemplateMixin {
               6,
           '-',
         )
-      : ' at ';
+      : (record.hasLocation ? 'at' : '');
 }
