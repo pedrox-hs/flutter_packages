@@ -13,36 +13,36 @@ class Log {
   static StackTrace? get _stackTrace =>
       forceStackTrace ? Trace.current(2) : null;
 
-  static void v(Object? message, [StackTrace? stackTrace]) {
-    _log.finest(message, null, stackTrace ?? _stackTrace);
+  static void v(Object? message, [Object? error, StackTrace? stackTrace]) {
+    _log.finest(message, error, stackTrace ?? _stackTrace);
   }
 
-  static void d(Object? message, [StackTrace? stackTrace]) {
-    _log.finer(message, null, stackTrace ?? _stackTrace);
+  static void d(Object? message, [Object? error, StackTrace? stackTrace]) {
+    _log.finer(message, error, stackTrace ?? _stackTrace);
   }
 
-  static void ok(Object? message, [StackTrace? stackTrace]) {
-    _log.fine(message, null, stackTrace ?? _stackTrace);
+  static void ok(Object? message, [Object? error, StackTrace? stackTrace]) {
+    _log.fine(message, error, stackTrace ?? _stackTrace);
   }
 
-  static void config(Object? message, [StackTrace? stackTrace]) {
-    _log.config(message, null, stackTrace ?? _stackTrace);
+  static void config(Object? message, [Object? error, StackTrace? stackTrace]) {
+    _log.config(message, error, stackTrace ?? _stackTrace);
   }
 
-  static void i(Object? message, [StackTrace? stackTrace]) {
-    _log.info(message, null, stackTrace ?? _stackTrace);
+  static void i(Object? message, [Object? error, StackTrace? stackTrace]) {
+    _log.info(message, error, stackTrace ?? _stackTrace);
   }
 
-  static void w(Object? message, [StackTrace? stackTrace]) {
-    _log.warning(message, null, stackTrace ?? _stackTrace);
+  static void w(Object? message, [Object? error, StackTrace? stackTrace]) {
+    _log.warning(message, error, stackTrace ?? _stackTrace);
   }
 
-  static void e(Object? message, [StackTrace? stackTrace]) {
-    _log.severe(message, null, stackTrace ?? Trace.current(1));
+  static void e(Object? message, [Object? error, StackTrace? stackTrace]) {
+    _log.severe(message, error, stackTrace ?? Trace.current(1));
   }
 
-  static void wtf(Object? message, [StackTrace? stackTrace]) {
-    _log.shout(message, null, stackTrace ?? Trace.current(1));
+  static void wtf(Object? message, [Object? error, StackTrace? stackTrace]) {
+    _log.shout(message, error, stackTrace ?? Trace.current(1));
   }
 
   static StreamSubscription<LogRecord> listen(LogRecorder recorder) {
