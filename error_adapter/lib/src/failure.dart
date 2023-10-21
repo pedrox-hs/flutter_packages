@@ -1,10 +1,9 @@
 abstract class Failure {
-  String get message;
+  Failure(this.message);
+
+  final String message;
 }
 
 class MessageFailure extends Failure {
-  MessageFailure(this.message);
-
-  @override
-  String message;
+  MessageFailure(String message) : super(message);
 }
