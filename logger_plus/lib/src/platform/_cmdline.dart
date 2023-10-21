@@ -12,6 +12,9 @@ class _Stdout implements Stdout {
   final io.Stdout stdout;
 
   @override
+  bool get supportsAnsiEscapes => stdout.supportsAnsiEscapes;
+
+  @override
   bool get hasTerminal => stdout.hasTerminal;
 
   @override

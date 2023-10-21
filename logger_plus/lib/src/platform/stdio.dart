@@ -1,10 +1,10 @@
 import 'dart:developer' as dev show log;
 
-import '_print.dart' show debugPrint;
-
 /// A platform-specific stdout.
 abstract class Stdout {
   bool get hasTerminal;
+
+  bool get supportsAnsiEscapes;
 
   int get terminalColumns;
 
@@ -20,23 +20,21 @@ class DevStdout implements Stdout {
   final bool hasTerminal = false;
 
   @override
-  final int terminalColumns = -1;
+  final bool supportsAnsiEscapes = true;
+
+  @override
+  int get terminalColumns =>
+      throw StdoutException('terminalColumns is not supported');
 
   @override
   void writeln(String message) => dev.log(message);
 }
 
-/// A stdout that prints to the console.
-/// It uses the `debugPrint` implementation.
-class PrintStdout implements Stdout {
-  const PrintStdout();
+class StdoutException implements Exception {
+  const StdoutException(this.message);
+
+  final String message;
 
   @override
-  final bool hasTerminal = false;
-
-  @override
-  final int terminalColumns = -1;
-
-  @override
-  void writeln(String message) => debugPrint(message);
+  String toString() => 'StdoutException: $message';
 }

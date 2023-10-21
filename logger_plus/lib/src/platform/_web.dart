@@ -1,6 +1,6 @@
 import 'dart:html' show window;
 
-import 'stdio.dart' show Stdout;
+import 'stdio.dart' show Stdout, StdoutException;
 
 const stdout = _Stdout();
 
@@ -13,7 +13,11 @@ class _Stdout implements Stdout {
   final bool hasTerminal = false;
 
   @override
-  final int terminalColumns = -1;
+  final bool supportsAnsiEscapes = true;
+
+  @override
+  int get terminalColumns =>
+      throw StdoutException('terminalColumns is not supported');
 
   @override
   void writeln(String message) => window.console.log(message);
