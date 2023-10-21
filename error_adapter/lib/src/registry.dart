@@ -3,20 +3,16 @@ import 'package:meta/meta.dart';
 import 'converter.dart';
 
 abstract class ErrorConverterRegistry {
-  final _converters = <ErrorConverterWrapper>[];
+  final _converters = <ErrorConverterWrapper>{};
 
   @protected
   @nonVirtual
-  void on<T>(ErrorConverter converter) {
-    final converterExists = _converters.any((handler) => handler.type == T);
-
-    if (converterExists) {
-      throw StateError(
-        'on<$T> was called multiple times. '
-        'There should only be a single error converter per error type.',
-      );
-    }
-
+  void on<T extends Object>(ErrorConverter converter) {
+    assert(
+      !_converters.any((handler) => handler.type == T),
+      'on<$T> was called multiple times. '
+      'There should only be a single error converter per error type.',
+    );
     _converters.add(
       ErrorConverterWrapper(
         type: T,
