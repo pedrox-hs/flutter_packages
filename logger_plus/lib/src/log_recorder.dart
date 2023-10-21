@@ -1,10 +1,19 @@
-import 'dart:io';
-
 import 'package:logging/logging.dart';
 
+import 'platform/io.dart' as io;
+import 'platform/stdio.dart';
 import 'utils/string.dart';
 
 abstract class LogRecorder {
+  LogRecorder({
+    Stdout? stdout,
+    Stdout? stderr,
+  }) : stdout = stdout ?? io.stdout,
+       stderr = stderr ?? io.stderr;
+
+  final Stdout stdout;
+  final Stdout stderr;
+  
   bool get forceStackTrace => false;
 
   String record(LogRecord record);
