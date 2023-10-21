@@ -9,12 +9,10 @@ extension LogRecordExt on LogRecord {
 
   String get emoji => level.emoji;
 
-  bool get hasLocation =>
-      trace?.frames.isNotEmpty == true || loggerName != libLoggerName;
-
-  String get location {
+  String? get location {
     final frame = trace?.frames.firstOrNull;
-    if (frame == null) return loggerName != libLoggerName ? loggerName : '';
+    // make sure to not return the location for the logger_plus package
+    if (frame == null) return loggerName != libLoggerName ? loggerName : null;
 
     return [frame.uri, frame.line, frame.column]
         .takeWhile((value) => value != null)

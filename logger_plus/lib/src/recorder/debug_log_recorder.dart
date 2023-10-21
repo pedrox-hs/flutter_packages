@@ -13,8 +13,7 @@ class DebugLogRecorder extends LogRecorder with LogRecorderTemplateMixin {
   final bool forceStackTrace = true;
 
   @override
-  final String template =
-      '{emoji} {message} {padding} {location}\n{error}\n{stackTrace}';
+  final String template = '{emoji} {message} {location}\n{error}\n{stackTrace}';
 
   @override
   String? resolveRecordValue(
@@ -31,10 +30,12 @@ class DebugLogRecorder extends LogRecorder with LogRecorderTemplateMixin {
         return record.emoji;
       case 'message':
         return record.message.colored(color);
-      case 'padding':
-        return _applyPadding(record).colored(color.light.normal);
       case 'location':
-        return record.location.colored(color.light.normal);
+        /// maybe make this configurable from [params]?
+        final location = record.location;
+        if (location == null) return '';
+        return _applyPadding(stdout, record.message, location)
+            .colored(color.light.normal);
       case 'error':
         return record.errorIfSevere?.colored(color.light.normal) ?? '';
       case 'stackTrace':
@@ -44,15 +45,13 @@ class DebugLogRecorder extends LogRecorder with LogRecorderTemplateMixin {
     }
   }
 
-  String _applyPadding(LogRecord record) => stdout.hasTerminal
-      ? ''.padRight(
-          stdout.terminalColumns -
-              record.message.length -
-              record.location.length -
-              6,
-          '-',
-        )
-      : (record.hasLocation ? 'at' : '');
+  String _applyPadding(Stdout stdout, String message, String location) {
+    if (!stdout.hasTerminal) return 'at $location';
+    final size =
+        stdout.terminalColumns - message.length - 4; // 4 = emoji + spaces + 1
+
+    return ' $location'.padLeft(size, '-');
+  }
 }
 
 extension _ObjectColoredExt on Object {
