@@ -27,6 +27,11 @@ abstract class ErrorConverterRegistry {
 
   ErrorConverter getConverterFor(Object error) =>
       _converters.firstWhere((el) => el.canConvert(error)).convert;
+
+  ErrorConverterRegistryComposite operator +(ErrorConverterRegistry other) =>
+      other is! ErrorConverterRegistryComposite
+          ? ErrorConverterRegistryComposite([this, other])
+          : other + this;
 }
 
 class ErrorConverterRegistryComposite extends ErrorConverterRegistry {
@@ -44,4 +49,13 @@ class ErrorConverterRegistryComposite extends ErrorConverterRegistry {
   ErrorConverter getConverterFor(Object error) => _registries
       .firstWhere((el) => el.hasConverterFor(error))
       .getConverterFor(error);
+
+  @override
+  ErrorConverterRegistryComposite operator +(ErrorConverterRegistry other) =>
+      ErrorConverterRegistryComposite([
+        ..._registries,
+        ...other is ErrorConverterRegistryComposite
+            ? other._registries
+            : [other],
+      ]);
 }
