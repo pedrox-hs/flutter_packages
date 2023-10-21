@@ -44,7 +44,7 @@ class RouteResolver {
       if (match == null) continue;
 
       final arguments = {
-        for (final key in match.groupNames) key: match.namedGroup(key)!
+        for (final key in match.groupNames) key: match.namedGroup(key)!,
       };
 
       return PageBuilderResult(
