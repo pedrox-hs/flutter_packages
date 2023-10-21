@@ -15,6 +15,10 @@ extension StringExt on String {
     return padding * (padLen ~/ 2) + this + padding * (padLen ~/ 2 + padRem);
   }
 
+  String format(List<dynamic> params) => formatWithMap(
+        {for (var index = params.length; index-- > 0;) '$index': params[index]},
+      );
+
   String formatWithMap(Map<String, dynamic> params) =>
       formatWith((key) => params[key]);
 
