@@ -1,10 +1,5 @@
 include: package:lints/recommended.yaml
 
-analyzer:
-  strong-mode:
-    implicit-casts: true
-    implicit-dynamic: true
-
 linter:
   rules:
     - always_declare_return_types
