@@ -21,7 +21,11 @@ extension LogRecordExt on LogRecord {
         .join(':');
   }
 
+  Object? get errorIfSevere => isSevere ? error : null;
+
   Trace? get trace => stackTrace != null ? Trace.from(stackTrace!) : null;
+
+  Trace? get traceIfSevere => isSevere ? trace : null;
 }
 
 extension IterableExt<T> on Iterable<T> {

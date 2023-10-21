@@ -36,13 +36,9 @@ class DebugLogRecorder extends LogRecorder with LogRecorderTemplateMixin {
       case 'location':
         return record.location.colored(color.light.normal);
       case 'error':
-        return record.isSevere && record.error != null
-            ? record.error?.colored(color.light.normal)
-            : '';
+        return record.errorIfSevere?.colored(color.light.normal) ?? '';
       case 'stackTrace':
-        return record.isSevere
-            ? record.trace!.colored(color.light.normal)
-            : '';
+        return record.traceIfSevere?.colored(color.light.normal) ?? '';
       default:
         return null;
     }
