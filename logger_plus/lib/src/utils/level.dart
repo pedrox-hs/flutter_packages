@@ -17,15 +17,15 @@ extension LevelExt on Level {
   }
 
   ConsoleColor get color {
-    if (this == Level.FINEST) return ConsoleColor.green.highlight.bold;
-    if (this == Level.FINER) return ConsoleColor.cyan.highlight.bold;
-    if (this == Level.FINE) return ConsoleColor.blue.bold;
-    if (this == Level.CONFIG) return ConsoleColor.gray;
-    if (this == Level.INFO) return ConsoleColor.blue;
-    if (this == Level.WARNING) return ConsoleColor.yellow.highlight;
-    if (this == Level.SEVERE) return ConsoleColor.red.highlight.bold;
-    if (this == Level.SHOUT) return ConsoleColor.magenta.highlight.bold;
+    if (this == Level.FINEST) return ConsoleColor.green().highlighted.bold;
+    if (this == Level.FINER) return ConsoleColor.cyan().highlighted.bold;
+    if (this == Level.FINE) return ConsoleColor.blue().bold;
+    if (this == Level.CONFIG) return ConsoleColor.gray();
+    if (this == Level.INFO) return ConsoleColor.blue();
+    if (this == Level.WARNING) return ConsoleColor.yellow().highlighted;
+    if (this == Level.SEVERE) return ConsoleColor.red().highlighted.bold;
+    if (this == Level.SHOUT) return ConsoleColor.magenta().highlighted.bold;
 
-    return ConsoleColor.none;
+    return ConsoleColor.none();
   }
 }

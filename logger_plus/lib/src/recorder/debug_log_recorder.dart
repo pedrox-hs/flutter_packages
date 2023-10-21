@@ -1,6 +1,7 @@
 import 'package:logging/logging.dart';
 
 import '../log_recorder.dart';
+import '../platform/stdio.dart';
 import '../utils/color.dart';
 import '../utils/level.dart';
 import '../utils/log_record.dart';
@@ -21,7 +22,9 @@ class DebugLogRecorder extends LogRecorder with LogRecorderTemplateMixin {
     String key,
     List<String> params,
   ) {
-    final color = record.level.color;
+    final stdout = record.isSevere ? stderr : this.stdout;
+    final color =
+        stdout.supportsAnsiEscapes ? record.level.color : ConsoleColor.none();
 
     switch (key) {
       case 'emoji':
@@ -34,11 +37,11 @@ class DebugLogRecorder extends LogRecorder with LogRecorderTemplateMixin {
         return record.location.colored(color.light.normal);
       case 'error':
         return record.isSevere && record.error != null
-            ? record.error?.toStringColored(color.light.normal)
+            ? record.error?.colored(color.light.normal)
             : '';
       case 'stackTrace':
         return record.isSevere
-            ? record.trace!.toStringColored(color.light.normal)
+            ? record.trace!.colored(color.light.normal)
             : '';
       default:
         return null;
@@ -54,4 +57,8 @@ class DebugLogRecorder extends LogRecorder with LogRecorderTemplateMixin {
           '-',
         )
       : (record.hasLocation ? 'at' : '');
+}
+
+extension _ObjectColoredExt on Object {
+  String colored(ConsoleColor color) => color.wrap(toString());
 }

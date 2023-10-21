@@ -1,54 +1,128 @@
+/// Uses ANSI escape codes to color the console.
+/// Color value is based on the 8-color ANSI standard.
+/// 
 /// for more info see: https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 class ConsoleColor {
   const ConsoleColor._(
-    this._value, {
-    int style = 0,
-    bool highligh = false,
-  })  : _style = style,
-        _highligh = highligh;
+    this.value, {
+    this.style = 0,
+    this.isHighlighed = false,
+  });
 
-  static ConsoleColor get none => ConsoleColor._(-1);
-  static ConsoleColor get black => ConsoleColor._(0);
-  static ConsoleColor get red => ConsoleColor._(1);
-  static ConsoleColor get green => ConsoleColor._(2);
-  static ConsoleColor get yellow => ConsoleColor._(3);
-  static ConsoleColor get blue => ConsoleColor._(4);
-  static ConsoleColor get magenta => ConsoleColor._(5);
-  static ConsoleColor get cyan => ConsoleColor._(6);
-  static ConsoleColor get gray => ConsoleColor._(7);
+  factory ConsoleColor.black() => ConsoleColor._(0);
+  factory ConsoleColor.red() => ConsoleColor._(1);
+  factory ConsoleColor.green() => ConsoleColor._(2);
+  factory ConsoleColor.yellow() => ConsoleColor._(3);
+  factory ConsoleColor.blue() => ConsoleColor._(4);
+  factory ConsoleColor.magenta() => ConsoleColor._(5);
+  factory ConsoleColor.cyan() => ConsoleColor._(6);
+  factory ConsoleColor.gray() => ConsoleColor._(7);
 
-  final int _value;
-  final int _style;
-  final bool _highligh;
+  /// Use this to reset the console color.
+  factory ConsoleColor.defaults() = _ConsoleColorDefault;
+  /// Use this to disable colors.
+  factory ConsoleColor.none() = _ConsoleColorNone;
+
+  final int value;
+  final int style;
+  final bool isHighlighed;
+
+  /// The ANSI code of this console color.
+  int get ansiCode => isHighlighed ? value + 90 : value + 30;
 
   ConsoleColor get normal => copyWith(style: 0);
   ConsoleColor get bold => copyWith(style: 1);
 
-  ConsoleColor get highlight => copyWith(highligh: true);
-  ConsoleColor get light => copyWith(highligh: false);
+  ConsoleColor get light => copyWith(isHighlighed: false);
+  ConsoleColor get highlighted => copyWith(isHighlighed: true);
 
-  int get _code => _highligh ? _value + 90 : _value + 30;
-  String get _codeStr => _value != -1 ? '\x1b[$_style;${_code}m' : '\x1b[0m';
+  /// Wraps the [text] with this console color.
+  String wrap(Object text) => '$this$text${ConsoleColor.defaults()}';
 
-  ConsoleColor copyWith({int? value, int? style, bool? highligh}) {
-    value ??= _value;
-    style ??= _style;
+  /// Copies this console color with the given values.
+  ConsoleColor copyWith({int? value, int? style, bool? isHighlighed}) {
+    value ??= this.value;
+    style ??= this.style;
 
     assert(value >= 0 && value <= 7);
     assert(style >= 0 && style <= 1);
 
-    return ConsoleColor._(value, style: style, highligh: highligh ?? _highligh);
+    return ConsoleColor._(
+      value,
+      style: style,
+      isHighlighed: isHighlighed ?? this.isHighlighed,
+    );
   }
 
+  /// Returns the ANSI escape code for this console color.
   @override
-  String toString() => _codeStr;
+  String toString() => '\x1b[$style;${ansiCode}m';
 }
 
-extension ColoredStringExt on String {
-  String colored(ConsoleColor color) =>
-      color.toString() + this + ConsoleColor.none.toString();
+/// The default console color.
+class _ConsoleColorDefault implements ConsoleColor {
+  const _ConsoleColorDefault();
+
+  @override
+  final int value = 0;
+  @override
+  final int style = 0;
+  @override
+  final bool isHighlighed = false;
+
+  @override
+  int get ansiCode => 0;
+
+  @override
+  ConsoleColor get normal => this;
+  @override
+  ConsoleColor get bold => this;
+
+  @override
+  ConsoleColor get light => this;
+  @override
+  ConsoleColor get highlighted => this;
+
+  @override
+  String wrap(Object text) => '$this$text$this';
+
+  @override
+  ConsoleColor copyWith({int? value, int? style, bool? isHighlighed}) => this;
+
+  @override
+  String toString() => '\x1b[0m';
 }
 
-extension ObjectColoredExt on Object {
-  String toStringColored(ConsoleColor color) => toString().colored(color);
+/// A console color when ANSI escape codes are not supported.
+class _ConsoleColorNone implements ConsoleColor {
+  const _ConsoleColorNone();
+
+  @override
+  final int value = -1;
+  @override
+  final int style = 0;
+  @override
+  final bool isHighlighed = false;
+
+  @override
+  int get ansiCode => -1;
+
+  @override
+  ConsoleColor get normal => this;
+  @override
+  ConsoleColor get bold => this;
+
+  @override
+  ConsoleColor get light => this;
+  @override
+  ConsoleColor get highlighted => this;
+
+  @override
+  String wrap(Object text) => text.toString();
+
+  @override
+  ConsoleColor copyWith({int? value, int? style, bool? isHighlighed}) => this;
+
+  @override
+  String toString() => '';
 }
