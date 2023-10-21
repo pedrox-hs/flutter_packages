@@ -1,4 +1,4 @@
-library logger_plus;
+library logify;
 
 export 'src/log_recorder.dart';
 export 'src/logger.dart';

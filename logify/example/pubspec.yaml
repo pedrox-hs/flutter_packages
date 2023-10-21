@@ -1,4 +1,4 @@
-name: logger_plus_example
+name: logify_example
 description: Logger Plus example
 publish_to: none
 
@@ -7,4 +7,4 @@ environment:
 
 dependencies:
   logging: ^1.1.1
-  logger_plus: ^0.1.0
+  logify: ^1.0.0

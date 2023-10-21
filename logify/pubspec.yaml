@@ -1,8 +1,8 @@
-name: logger_plus
+name: logify
 description: Just another library for logging
 version: 1.0.0
 homepage: https://github.com/pedrox-hs/flutter_packages
-repository: https://github.com/pedrox-hs/flutter_packages/tree/main/logger_plus
+repository: https://github.com/pedrox-hs/flutter_packages/tree/main/logify
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

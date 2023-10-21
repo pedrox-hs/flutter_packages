@@ -11,7 +11,7 @@ extension LogRecordExt on LogRecord {
 
   String? get location {
     final frame = trace?.frames.firstOrNull;
-    // make sure to not return the location for the logger_plus package
+    // make sure to not return the location for the logify package
     if (frame == null) return loggerName != libLoggerName ? loggerName : null;
 
     return [frame.uri, frame.line, frame.column]

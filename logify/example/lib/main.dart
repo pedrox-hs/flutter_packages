@@ -1,5 +1,5 @@
 // example/main.dart
-import 'package:logger_plus/logger_plus.dart';
+import 'package:logify/logify.dart';
 import 'package:logging/logging.dart';
 
 void main() {

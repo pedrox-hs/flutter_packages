@@ -1,4 +1,4 @@
-library logger_plus;
+library logify;
 
 export 'src/utils/color.dart';
 export 'src/utils/level.dart';

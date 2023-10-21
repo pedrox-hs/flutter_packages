@@ -5,7 +5,7 @@ import 'package:stack_trace/stack_trace.dart';
 
 import 'log_recorder.dart';
 
-final libLoggerName = 'logging_plus';
+const libLoggerName = 'logify';
 
 class Log {
   static final _log = Logger(libLoggerName);

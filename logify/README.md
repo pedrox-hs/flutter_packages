@@ -15,14 +15,14 @@ A little bit based on [Timber](https://github.com/JakeWharton/timber) library.
 Add dependency to project:
 
 ```bash
-flutter pub add logger_plus --git-url=https://github.com/pedrox-hs/flutter_packages --git-path=logger_plus
+flutter pub add logify --git-url=https://github.com/pedrox-hs/flutter_packages --git-path=logify
 ```
 
 ## Usage
 
 ```dart
 // Import the package
-import 'package:logger_plus/logger_plus.dart';
+import 'package:logify/logify.dart';
 
 void main() {
   // In the main file or entrypoint add a recorder just once
@@ -36,7 +36,7 @@ void main() {
 You can also integrate with logging library:
 
 ```dart
-import 'package:logger_plus/logger_plus.dart';
+import 'package:logify/logify.dart';
 import 'package:logging/logging.dart';
 
 void main() {
