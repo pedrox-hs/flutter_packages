@@ -3,6 +3,7 @@ description: A new Flutter package project.
 version: 0.1.0
 homepage: https://github.com/pedrox-hs/flutter_packages
 repository: https://github.com/pedrox-hs/flutter_packages/tree/main/auto_route/generator
+publish_to: none
 
 environment:
   sdk: '>=2.19.6 <3.0.0'
@@ -12,10 +13,16 @@ dependencies:
   build: any
   collection: any
   source_gen: any
-  auto_route: 0.1.0
-  logging: ^1.1.1
   build_runner: any
-  logify: ^0.1.0
+  logging: ^1.1.1
+  auto_route:
+    git:
+      url: https://github.com/pedrox-hs/flutter_packages
+      path: auto_route
+  logify:
+    git:
+      url: https://github.com/pedrox-hs/flutter_packages
+      path: logify
 
 dev_dependencies:
   build_test: any
