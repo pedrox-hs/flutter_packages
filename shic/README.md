@@ -1,4 +1,4 @@
-Just another library for http requests.
+SHIC (Simple HTTP Interceptor Chain) is just another library for HTTP requests.
 
 A little bit based on [OkHttp](https://square.github.io/okhttp/) library.
 
@@ -14,7 +14,7 @@ A little bit based on [OkHttp](https://square.github.io/okhttp/) library.
 Add dependency to project:
 
 ```bash
-flutter pub add http_client_plus --git-url=https://github.com/pedrox-hs/flutter_packages --git-path=http_client_plus
+flutter pub add shic --git-url=https://github.com/pedrox-hs/flutter_packages --git-path=shic
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ Basic usage:
 ```dart
 // example/main.dart
 import 'package:http/http.dart' as http;
-import 'package:http_client_plus/http_client_plus.dart';
+import 'package:shic/shic.dart';
 
 void main() {
     final http.Client httpClient = InterceptableClient.withDefaultInterceptors(

@@ -1,4 +1,4 @@
-library http_client_plus;
+library shic;
 
 export 'src/ext/client.dart';
 export 'src/ext/request.dart';
