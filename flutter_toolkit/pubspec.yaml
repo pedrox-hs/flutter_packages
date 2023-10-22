@@ -17,7 +17,7 @@ dependencies:
   fvm: <3.0.0
   meta: any
   path: any
-  process_run: ^0.12.3+2
+  process_run: ^0.13.0
   yaml: ^3.1.1
 
 dev_dependencies:
