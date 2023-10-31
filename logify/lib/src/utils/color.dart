@@ -38,7 +38,7 @@ class ConsoleColor {
   ConsoleColor get highlighted => copyWith(isHighlighed: true);
 
   /// Wraps the [text] with this console color.
-  String wrap(Object text) => '$this$text${ConsoleColor.defaults()}';
+  String wrap(Object text) => '${this}${text}${ConsoleColor.defaults()}';
 
   /// Copies this console color with the given values.
   ConsoleColor copyWith({int? value, int? style, bool? isHighlighed}) {
@@ -85,7 +85,7 @@ class _ConsoleColorDefault implements ConsoleColor {
   ConsoleColor get highlighted => this;
 
   @override
-  String wrap(Object text) => '$this$text$this';
+  String wrap(Object text) => '${this}${text}${this}';
 
   @override
   ConsoleColor copyWith({int? value, int? style, bool? isHighlighed}) => this;
