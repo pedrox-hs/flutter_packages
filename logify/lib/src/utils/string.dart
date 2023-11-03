@@ -8,7 +8,7 @@ extension StringExt on String {
   /// ```
   /// 'hello'.padBoth(10, '*');
   /// ```
-  /// This will return `'***hello**'`.
+  /// This will return `'**hello***'`.
   String padBoth(int width, [String padding = ' ']) {
     if (length >= width) return this;
     final padLen = width - length;
