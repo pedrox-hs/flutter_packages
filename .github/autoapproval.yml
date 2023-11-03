@@ -1,0 +1,8 @@
+from_owner:
+  - pedrox-hs
+required_labels:
+  - autoapprove
+apply_labels:
+  - automerge
+ignored_labels:
+  - wip
