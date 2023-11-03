@@ -89,8 +89,14 @@ jobs:
             flutter test --coverage
           fi
 
+      - name: Normalize Codecov fag name
+        id: codecov-flag
+        run: |
+          echo "name=$(echo ${{ matrix.tests }} | sed -e 's/\//./g')" >> $GITHUB_OUTPUT
+
+
       - name: Codecov
         uses: codecov/codecov-action@v3
         with:
-          flags: ${{ matrix.tests }}
+          flags: ${{ steps.codecov-flag.outputs.name }}
           file: ${{ matrix.tests }}/coverage/lcov.info
