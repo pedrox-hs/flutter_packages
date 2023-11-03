@@ -2,13 +2,12 @@ name: Alls green
 
 on:
   push:
+    branches: ["main"]
   pull_request:
-    types: [ labeled, ready_for_review ]
-  pull_request_review:
-    types: [ dismissed ]
+    types: [ synchronize, opened, reopened, labeled, ready_for_review ]
 
 concurrency:
-  group: alls-green-${{ github.sha }}
+  group: alls-green-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -22,13 +21,14 @@ jobs:
           script: |
             const checkInterval = 30000; // 30 seconds
             const jobName = context.job;
+            const checksRef = context.eventName == 'pull_request' ? context.payload.pull_request.head.sha : context.sha;
             let hasPendingChecks = true;
 
             while (hasPendingChecks) {
               let { data: { check_runs: checkRuns } } = await github.rest.checks.listForRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                ref: context.sha,
+                ref: checksRef,
                 per_page: 100,
               });
 
