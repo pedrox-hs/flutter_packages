@@ -69,7 +69,7 @@ Log.listen(ConsoleLogRecorder());
 
 Output:
 
-<img src="demo/simple.png?raw=true&v=1" alt="messages preview" width="600"/>
+<img src="https://github.com/pedrox-hs/flutter_packages/raw/main/logify/demo/simple.png?raw=true&v=1" alt="ConsoleLogRecorder output preview" width="600"/>
 
 **DebugLogRecorder**
 
@@ -78,4 +78,4 @@ Log.listen(DebugLogRecorder());
 ```
 Output:
 
-<img src="demo/colored.png?raw=true&v=2" alt="messages preview" width="600"/>
+<img src="https://github.com/pedrox-hs/flutter_packages/raw/main/logify/demo/colored.png?raw=true&v=2" alt="DebugLogRecorder output preview" width="600"/>
