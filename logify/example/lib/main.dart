@@ -1,6 +1,6 @@
 // example/main.dart
-import 'package:logify/logify.dart';
 import 'package:logging/logging.dart';
+import 'package:logify/logify.dart';
 
 void main() {
   Logger.root.level = Level.ALL;

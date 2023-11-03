@@ -21,11 +21,11 @@ class ProjectSetupCommand extends BaseCommand<IFlutterFireConfig> {
 
   @override
   List<Action> actions() => [
-        InstallFirebaseCliIfNeeded(),
-        LoginToFirebaseIfNeeded(),
-        RemoveOldConfigFiles(),
-        FlutterFireConfigure(args),
-        RemoveUnusedClientInfo(androidPackageName: args.androidPackageName),
+        InstallFirebaseCliIfNeeded().call,
+        LoginToFirebaseIfNeeded().call,
+        RemoveOldConfigFiles().call,
+        FlutterFireConfigure(args).call,
+        RemoveUnusedClientInfo(androidPackageName: args.androidPackageName).call,
       ];
 }
 

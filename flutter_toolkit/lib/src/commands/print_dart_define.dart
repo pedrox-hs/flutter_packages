@@ -19,7 +19,7 @@ class PrintDartDefineCommand extends BaseCommand<IDartDefineConfig> {
 
   @override
   List<Action> actions() => [
-        PrintDartDefine(args),
+        PrintDartDefine(args).call,
       ];
 }
 

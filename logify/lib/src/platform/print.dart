@@ -64,7 +64,7 @@ void _debugPrintTask() {
   }
   while (_debugPrintedCharacters < _kDebugPrintCapacity && _debugPrintBuffer.isNotEmpty) {
     final String line = _debugPrintBuffer.removeFirst();
-    _debugPrintedCharacters += line.length; // TODO(ianh): Use the UTF-8 byte length instead
+    _debugPrintedCharacters += line.length;
     print(line);
   }
   if (_debugPrintBuffer.isNotEmpty) {
