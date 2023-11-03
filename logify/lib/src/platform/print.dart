@@ -48,6 +48,7 @@ void debugPrintThrottled(String? message) {
     _debugPrintTask();
   }
 }
+
 int _debugPrintedCharacters = 0;
 const int _kDebugPrintCapacity = 12 * 1024;
 const Duration _kDebugPrintPauseTime = Duration(seconds: 1);
@@ -62,7 +63,8 @@ void _debugPrintTask() {
     _debugPrintStopwatch.reset();
     _debugPrintedCharacters = 0;
   }
-  while (_debugPrintedCharacters < _kDebugPrintCapacity && _debugPrintBuffer.isNotEmpty) {
+  while (_debugPrintedCharacters < _kDebugPrintCapacity &&
+      _debugPrintBuffer.isNotEmpty) {
     final String line = _debugPrintBuffer.removeFirst();
     _debugPrintedCharacters += line.length;
     print(line);
@@ -82,4 +84,5 @@ void _debugPrintTask() {
 /// A Future that resolves when there is no longer any buffered content being
 /// printed by [debugPrintThrottled] (which is the default implementation for
 /// [debugPrint], which is used to report errors to the console).
-Future<void> get debugPrintDone => _debugPrintCompleter?.future ?? Future<void>.value();
+Future<void> get debugPrintDone =>
+    _debugPrintCompleter?.future ?? Future<void>.value();
