@@ -22,8 +22,8 @@ void main() {
         stderr: stderr,
       );
 
-      when(() => stdout.terminalColumns).thenReturn(130);
-      when(() => stderr.terminalColumns).thenReturn(130);
+      when(() => stdout.terminalColumns).thenReturn(100);
+      when(() => stderr.terminalColumns).thenReturn(100);
     });
 
     test(
@@ -38,7 +38,7 @@ void main() {
           StackTrace.current,
         );
         final expected =
-            '📝 \x1B[1;34msome info message\x1B[0m \x1B[0;34m------ ${record.location}\x1B[0m';
+            '📝 \x1B[1;34msome info message\x1B[0m \x1B[0;34m ${record.location}\x1B[0m';
         when(() => stdout.supportsAnsiEscapes).thenReturn(true);
         when(() => stdout.hasTerminal).thenReturn(true);
 
@@ -65,7 +65,7 @@ void main() {
           StackTrace.current,
         );
         final expected =
-            '🚨 \x1B[1;91msome severe message\x1B[0m \x1B[0;31m---- ${record.location}\x1B[0m\n\x1B[0;31merror\x1B[0m\n\x1B[0;31m${record.trace}\x1B[0m';
+            '🚨 \x1B[1;91msome severe message\x1B[0m \x1B[0;31m ${record.location}\x1B[0m\n\x1B[0;31merror\x1B[0m\n\x1B[0;31m${record.trace}\x1B[0m';
         when(() => stderr.supportsAnsiEscapes).thenReturn(true);
         when(() => stderr.hasTerminal).thenReturn(true);
 
@@ -92,7 +92,7 @@ void main() {
           StackTrace.current,
         );
         final expected =
-            '🚨 some severe message ---- ${record.location}\nerror\n${record.trace}';
+            '🚨 some severe message  ${record.location}\nerror\n${record.trace}';
         when(() => stderr.supportsAnsiEscapes).thenReturn(false);
         when(() => stderr.hasTerminal).thenReturn(true);
 
