@@ -21,7 +21,7 @@ jobs:
         uses: subosito/flutter-action@v1
         
       - name: Cache pub packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.pub-cache
           key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}
