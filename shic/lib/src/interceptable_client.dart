@@ -33,7 +33,7 @@ class InterceptableClient extends BaseClient {
   final Iterable<HttpInterceptor> interceptors;
 
   ChainInterceptor get _chain =>
-      interceptors.toList().reversed.fold(_client, _chainInterceptor);
+      interceptors.toList().reversed.fold(_client.call, _chainInterceptor);
 
   @override
   Future<StreamedResponse> send(BaseRequest request) => _chain.call(request);

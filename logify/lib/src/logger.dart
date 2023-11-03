@@ -49,7 +49,7 @@ class Log {
 
   static StreamSubscription<LogRecord> listen(LogRecorder recorder) {
     forceStackTrace |= recorder.forceStackTrace;
-    return _log.onRecord.listen(recorder);
+    return _log.onRecord.listen(recorder.call);
   }
 
   static void clearListeners() {

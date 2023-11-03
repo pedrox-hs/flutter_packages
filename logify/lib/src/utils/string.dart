@@ -17,7 +17,7 @@ extension StringExt on String {
   }
 
   /// Replace all occurrences of {index} with the corresponding parameter..
-  /// 
+  ///
   /// Example:
   /// ```
   /// '{0} {2} {0}'.format(['foo', 'bar', 'baz', 'qux']);

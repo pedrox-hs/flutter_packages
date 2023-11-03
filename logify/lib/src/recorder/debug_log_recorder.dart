@@ -31,7 +31,7 @@ class DebugLogRecorder extends LogRecorder with LogRecorderTemplateMixin {
       case 'message':
         return record.message.colored(color);
       case 'location':
-        /// maybe make this configurable from [params]?
+        // maybe make this configurable from [params]?
         final location = record.location;
         if (location == null) return '';
         return _applyPadding(stdout, record.message, location)

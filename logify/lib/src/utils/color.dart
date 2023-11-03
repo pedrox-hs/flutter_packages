@@ -1,6 +1,6 @@
 /// Uses ANSI escape codes to color the console.
 /// Color value is based on the 8-color ANSI standard.
-/// 
+///
 /// for more info see: https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 class ConsoleColor {
   const ConsoleColor._(
@@ -20,6 +20,7 @@ class ConsoleColor {
 
   /// Use this to reset the console color.
   factory ConsoleColor.defaults() = _ConsoleColorDefault;
+
   /// Use this to disable colors.
   factory ConsoleColor.none() = _ConsoleColorNone;
 

@@ -13,7 +13,7 @@ class RunAppCommand extends BaseCommand<List<String>> {
 
   @override
   List<Action> actions() => [
-        FvmFlutterRun(flutterRunArgs: argResults!.arguments),
+        FvmFlutterRun(flutterRunArgs: argResults!.arguments).call,
       ];
 }
 
