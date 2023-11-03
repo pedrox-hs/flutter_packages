@@ -61,7 +61,7 @@ jobs:
         if: steps.has-flutter-sdk.outputs.has-flutter-sdk == 'false'
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2
         if: steps.has-flutter-sdk.outputs.has-flutter-sdk == 'true'
 
       - name: Install Coverage
