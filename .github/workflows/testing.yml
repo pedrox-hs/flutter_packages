@@ -74,6 +74,8 @@ jobs:
       - uses: stelynx/dart-full-coverage@v1.1.1
         with:
           package: ${{ steps.package-name.outputs.package }}
+          path: ${{ matrix.tests }}/lib
+          test_file: ${{ matrix.tests }}/test/full_coverage_helper.dart
 
       - name: Run tests
         run: |
