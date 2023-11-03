@@ -1,0 +1,90 @@
+name: Autoapproval
+
+on:
+  workflow_run:
+    workflows:
+      - Alls green
+    types:
+      - completed
+
+concurrency:
+  group: autoapproval-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  approval-list:
+    name: Generate approval list
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    outputs:
+      matrix: ${{ steps.prs.outputs.result }}
+
+    steps:
+      - name: Get Pull Request data
+        id: prs
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const pullRequests = context.payload.workflow_run.pull_requests;
+            const { name: repoName, owner: { login: ownerName } } = context.payload.workflow_run.repository;
+
+            let approvals = [];
+
+            for (const pr of pullRequests) {
+              // get pull request data
+              const { data: pullRequest } = await github.rest.pulls.get({
+                owner: ownerName,
+                repo: repoName,
+                pull_number: pr.number,
+              });
+
+              // if PR is not open or is a draft, skip
+              if (pullRequest.draft || pullRequest.state !== 'open') {
+                github.log.debug(`Skipping PR #${pullRequest.number} with state ${pullRequest.state}.`);
+                continue;
+              }
+
+              // get collaborator permission level
+              const { data: { permission } } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: ownerName,
+                repo: repoName,
+                username: pullRequest.user.login,
+              });
+
+              // only add PRs that have write or admin permissions
+              github.log.debug(`The collaborator ${pullRequest.user.login} has permission ${permission}.`);
+              if (permission == 'admin' || permission == 'write') {
+                approvals.push({
+                  owner: ownerName,
+                  repo: repoName,
+                  number: pullRequest.number,
+                });
+              }
+            }
+
+            github.log.debug(`Approvals: ${JSON.stringify(approvals, null, 2)}`);
+            return {
+              include: approvals,
+            };
+
+  autoapproval:
+    name: Autoapproval
+    runs-on: ubuntu-latest
+    needs: approval-list
+    if: ${{ needs.approval-list.outputs.matrix && needs.approval-list.outputs.matrix != '{"include":[]}' }}
+    permissions:
+      contents: read
+      pull-requests: write
+
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.approval-list.outputs.matrix )}}
+
+    steps:
+      - name: Autoapproval
+        uses: pedrox-hs/autoapproval@main
+        with:
+          repository: "${{ matrix.owner }}/${{ matrix.repo }}"
+          pr_number: ${{ matrix.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
