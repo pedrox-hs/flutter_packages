@@ -14,8 +14,6 @@ abstract class LogRecorder {
   final Stdout stdout;
   final Stdout stderr;
 
-  bool get forceStackTrace => false;
-
   String record(LogRecord record);
 
   void call(LogRecord record) {
