@@ -1,3 +1,7 @@
+# Logify
+
+[![codecov](https://codecov.io/gh/pedrox-hs/flutter_packages/graph/badge.svg?flags=logify)](https://codecov.io/gh/pedrox-hs/flutter_packages)
+
 Just another library for logging.
 
 A little bit based on [Timber](https://github.com/JakeWharton/timber) library.
@@ -79,4 +83,3 @@ Log.listen(DebugLogRecorder());
 Output:
 
 <img src="demo/colored.png?raw=true&v=2" alt="messages preview" width="600"/>
-

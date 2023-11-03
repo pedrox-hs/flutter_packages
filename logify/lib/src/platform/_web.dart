@@ -1,13 +1,19 @@
-import 'dart:html' show window;
+import 'package:meta/meta.dart';
 
+import '_fake.dart' if (dart.library.html) 'dart:html' show window;
 import 'stdio.dart' show Stdout, StdoutException;
 
-const stdout = _Stdout();
+final stdout = WebStdout(window.console.log);
 
-const stderr = _Stdout();
+final stderr = WebStdout(window.console.error);
 
-class _Stdout implements Stdout {
-  const _Stdout();
+typedef WebLog = void Function(Object? arg);
+
+@visibleForTesting
+class WebStdout implements Stdout {
+  const WebStdout(this.log);
+
+  final WebLog log;
 
   @override
   final bool hasTerminal = false;
@@ -17,8 +23,8 @@ class _Stdout implements Stdout {
 
   @override
   int get terminalColumns =>
-      throw StdoutException('terminalColumns is not supported');
+      throw const StdoutException('terminalColumns is not supported');
 
   @override
-  void writeln(String message) => window.console.log(message);
+  void writeln(String message) => log(message);
 }

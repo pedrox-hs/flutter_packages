@@ -8,13 +8,11 @@ abstract class LogRecorder {
   LogRecorder({
     Stdout? stdout,
     Stdout? stderr,
-  })  : stdout = stdout ?? io.stdout,
-        stderr = stderr ?? io.stderr;
+  })  : stdout = stdout ?? io.stdout, // coverage:ignore-line
+        stderr = stderr ?? io.stderr; // coverage:ignore-line
 
   final Stdout stdout;
   final Stdout stderr;
-
-  bool get forceStackTrace => false;
 
   String record(LogRecord record);
 

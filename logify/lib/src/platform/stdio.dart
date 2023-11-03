@@ -1,5 +1,4 @@
-import 'dart:developer' as dev show log;
-
+// coverage:ignore-file
 /// A platform-specific stdout.
 abstract class Stdout {
   bool get hasTerminal;
@@ -9,25 +8,6 @@ abstract class Stdout {
   int get terminalColumns;
 
   void writeln(String message);
-}
-
-/// A stdout that prints to the console.
-/// It uses the `dart:developer` library.
-class DevStdout implements Stdout {
-  const DevStdout();
-
-  @override
-  final bool hasTerminal = false;
-
-  @override
-  final bool supportsAnsiEscapes = true;
-
-  @override
-  int get terminalColumns =>
-      throw StdoutException('terminalColumns is not supported');
-
-  @override
-  void writeln(String message) => dev.log(message);
 }
 
 class StdoutException implements Exception {

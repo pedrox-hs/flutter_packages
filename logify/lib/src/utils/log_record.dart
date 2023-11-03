@@ -1,18 +1,12 @@
 import 'package:logging/logging.dart';
 import 'package:stack_trace/stack_trace.dart';
 
-import '../logger.dart';
-import 'level.dart';
-
 extension LogRecordExt on LogRecord {
   bool get isSevere => level >= Level.SEVERE;
 
-  String get emoji => level.emoji;
-
   String? get location {
     final frame = trace?.frames.firstOrNull;
-    // make sure to not return the location for the logify package
-    if (frame == null) return loggerName != libLoggerName ? loggerName : null;
+    if (frame == null) return loggerName;
 
     return [frame.uri, frame.line, frame.column]
         .takeWhile((value) => value != null)

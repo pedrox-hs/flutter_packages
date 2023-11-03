@@ -1,58 +1,81 @@
 import 'dart:async';
 
 import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 import 'log_recorder.dart';
 
 const libLoggerName = 'logify';
 
+const _defaultErrorMessage =
+    'An error occurred, but no error message was provided.';
+
+const _defaultWtfMessage =
+    'A Terrible Failure occurred, but no error message was provided.';
+
+@visibleForTesting
+Logger defaultLogger = Logger(libLoggerName);
+
 class Log {
-  static final _log = Logger(libLoggerName);
+  static Logger get logger => defaultLogger;
 
-  static bool forceStackTrace = false;
+  static StackTrace get _requiredStackTrace => Trace.current(2);
 
-  static StackTrace? get _stackTrace =>
-      forceStackTrace ? Trace.current(2) : null;
+  static StackTrace? get _optionalStackTrace {
+    Trace? trace;
+
+    // enable stacktrace on non error logs only in debug mode
+    assert(() {
+      trace = Trace.current(3);
+      return true;
+    }());
+
+    return trace;
+  }
 
   static void v(Object? message, [Object? error, StackTrace? stackTrace]) {
-    _log.finest(message, error, stackTrace ?? _stackTrace);
+    logger.finest(message, error, stackTrace ?? _optionalStackTrace);
   }
 
   static void d(Object? message, [Object? error, StackTrace? stackTrace]) {
-    _log.finer(message, error, stackTrace ?? _stackTrace);
+    logger.finer(message, error, stackTrace ?? _optionalStackTrace);
   }
 
   static void ok(Object? message, [Object? error, StackTrace? stackTrace]) {
-    _log.fine(message, error, stackTrace ?? _stackTrace);
+    logger.fine(message, error, stackTrace ?? _optionalStackTrace);
   }
 
   static void config(Object? message, [Object? error, StackTrace? stackTrace]) {
-    _log.config(message, error, stackTrace ?? _stackTrace);
+    logger.config(message, error, stackTrace ?? _optionalStackTrace);
   }
 
   static void i(Object? message, [Object? error, StackTrace? stackTrace]) {
-    _log.info(message, error, stackTrace ?? _stackTrace);
+    logger.info(message, error, stackTrace ?? _optionalStackTrace);
   }
 
   static void w(Object? message, [Object? error, StackTrace? stackTrace]) {
-    _log.warning(message, error, stackTrace ?? _stackTrace);
+    logger.warning(message, error, stackTrace ?? _optionalStackTrace);
   }
 
   static void e(Object? message, [Object? error, StackTrace? stackTrace]) {
-    _log.severe(message, error, stackTrace ?? Trace.current(1));
+    logger.severe(
+      message,
+      error ?? message ?? _defaultErrorMessage,
+      stackTrace ?? _requiredStackTrace,
+    );
   }
 
   static void wtf(Object? message, [Object? error, StackTrace? stackTrace]) {
-    _log.shout(message, error, stackTrace ?? Trace.current(1));
+    logger.shout(
+      message,
+      error ?? message ?? _defaultWtfMessage,
+      stackTrace ?? _requiredStackTrace,
+    );
   }
 
-  static StreamSubscription<LogRecord> listen(LogRecorder recorder) {
-    forceStackTrace |= recorder.forceStackTrace;
-    return _log.onRecord.listen(recorder.call);
-  }
+  static StreamSubscription<LogRecord> listen(LogRecorder recorder) =>
+      logger.onRecord.listen(recorder.call);
 
-  static void clearListeners() {
-    _log.clearListeners();
-  }
+  static void clearListeners() => logger.clearListeners();
 }

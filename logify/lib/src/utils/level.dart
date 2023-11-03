@@ -3,29 +3,25 @@ import 'package:logging/logging.dart';
 import 'color.dart';
 
 extension LevelExt on Level {
-  String get emoji {
-    if (this == Level.FINEST) return '🔬';
-    if (this == Level.FINER) return '🔎';
-    if (this == Level.FINE) return '👌';
-    if (this == Level.CONFIG) return '🔧';
-    if (this == Level.INFO) return '📝';
-    if (this == Level.WARNING) return '📣';
-    if (this == Level.SEVERE) return '🚨';
-    if (this == Level.SHOUT) return '☠️ ';
+  String get emoji => _styles[this]?.emoji ?? '🤷‍♂️';
 
-    return '🤷‍♂️';
-  }
+  ConsoleColor get color => _styles[this]?.color ?? const ConsoleColor.none();
+}
 
-  ConsoleColor get color {
-    if (this == Level.FINEST) return ConsoleColor.gray();
-    if (this == Level.FINER) return ConsoleColor.cyan();
-    if (this == Level.FINE) return ConsoleColor.green().highlighted.bold;
-    if (this == Level.CONFIG) return ConsoleColor.gray().highlighted;
-    if (this == Level.INFO) return ConsoleColor.blue().bold;
-    if (this == Level.WARNING) return ConsoleColor.yellow().highlighted;
-    if (this == Level.SEVERE) return ConsoleColor.red().highlighted.bold;
-    if (this == Level.SHOUT) return ConsoleColor.magenta().highlighted.bold;
+final _styles = <Level, _Style>{
+  Level.FINEST: const _Style('🔬', ConsoleColor.gray()),
+  Level.FINER: const _Style('🔎', ConsoleColor.cyan()),
+  Level.FINE: _Style('👌', const ConsoleColor.green().highlighted.bold),
+  Level.CONFIG: _Style('🔧', const ConsoleColor.gray().highlighted),
+  Level.INFO: _Style('📝', const ConsoleColor.blue().bold),
+  Level.WARNING: _Style('📣', const ConsoleColor.yellow().highlighted),
+  Level.SEVERE: _Style('🚨', const ConsoleColor.red().highlighted.bold),
+  Level.SHOUT: _Style('☠️ ', const ConsoleColor.magenta().highlighted.bold),
+};
 
-    return ConsoleColor.none();
-  }
+class _Style {
+  const _Style(this.emoji, this.color);
+
+  final String emoji;
+  final ConsoleColor color;
 }

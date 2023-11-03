@@ -9,8 +9,10 @@ import '../utils/log_record.dart';
 /// A [LogRecorder] that prints beautiful logs to the console.
 /// It also prints the stack trace for [Level.SEVERE] logs.
 class DebugLogRecorder extends LogRecorder with LogRecorderTemplateMixin {
-  @override
-  final bool forceStackTrace = true;
+  DebugLogRecorder({
+    Stdout? stdout,
+    Stdout? stderr,
+  }) : super(stdout: stdout, stderr: stderr);
 
   @override
   final String template = '{emoji} {message} {location}\n{error}\n{stackTrace}';
@@ -22,12 +24,13 @@ class DebugLogRecorder extends LogRecorder with LogRecorderTemplateMixin {
     List<String> params,
   ) {
     final stdout = record.isSevere ? stderr : this.stdout;
-    final color =
-        stdout.supportsAnsiEscapes ? record.level.color : ConsoleColor.none();
+    final color = stdout.supportsAnsiEscapes
+        ? record.level.color
+        : const ConsoleColor.none();
 
     switch (key) {
       case 'emoji':
-        return record.emoji;
+        return record.level.emoji;
       case 'message':
         return record.message.colored(color);
       case 'location':

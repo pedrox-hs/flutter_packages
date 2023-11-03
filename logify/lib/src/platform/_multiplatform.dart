@@ -1,29 +1,35 @@
-import 'dart:io' as io show stdout;
+import 'dart:io' as io show stdout, stderr, Stdout, Platform;
 
-import 'print.dart' show debugPrint;
+import 'package:meta/meta.dart';
+
+import '../utils/print.dart' show debugPrint;
 import 'stdio.dart' show Stdout, StdoutException;
 
-const stdout = _PrintStdout();
+final stdout = PrintStdout(io.stdout);
 
-const stderr = _PrintStdout();
+final stderr = PrintStdout(io.stderr);
 
 /// A stdout that prints to the console.
 /// It uses the `debugPrint` implementation.
-class _PrintStdout implements Stdout {
-  const _PrintStdout();
+@visibleForTesting
+class PrintStdout implements Stdout {
+  const PrintStdout(this.stdout);
+
+  final io.Stdout stdout;
 
   @override
-  bool get hasTerminal => io.stdout.hasTerminal;
+  bool get hasTerminal => stdout.hasTerminal;
 
   @override
-  bool get supportsAnsiEscapes => io.stdout.supportsAnsiEscapes;
+  bool get supportsAnsiEscapes =>
+      stdout.supportsAnsiEscapes || io.Platform.isAndroid;
 
   @override
   int get terminalColumns {
     try {
-      return io.stdout.terminalColumns;
+      return stdout.terminalColumns;
     } on Exception {
-      throw StdoutException('terminalColumns is not supported');
+      throw const StdoutException('terminalColumns is not supported');
     }
   }
 
