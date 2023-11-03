@@ -32,6 +32,9 @@ jobs:
       fail-fast: false
       matrix:
         tests: ${{ fromJson(needs.find-tests.outputs.tests) }}
+    defaults:
+      run:
+        working-directory: ${{ matrix.tests }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -79,7 +82,6 @@ jobs:
 
       - name: Run tests
         run: |
-          cd ${{ matrix.tests }}
           dart pub get
           if command -v test_with_coverage &> /dev/null; then
             test_with_coverage
@@ -91,4 +93,4 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           name: ${{ matrix.tests }}
-          file: ./coverage/lcov.info
+          file: ${{ matrix.tests }}/coverage/lcov.info
