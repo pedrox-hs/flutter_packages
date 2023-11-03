@@ -1,6 +1,6 @@
-# Logify
-
-[![codecov](https://codecov.io/gh/pedrox-hs/flutter_packages/graph/badge.svg?flags=logify)](https://codecov.io/gh/pedrox-hs/flutter_packages)
+[![codecov](https://codecov.io/gh/pedrox-hs/flutter_packages/graph/badge.svg?flag=logify)](https://codecov.io/gh/pedrox-hs/flutter_packages)
+[![pub package](https://img.shields.io/pub/v/logify.svg)](https://pub.dev/packages/logify)
+[![package publisher](https://img.shields.io/pub/publisher/logify.svg)](https://pub.dev/packages/logify/publisher)
 
 Just another library for logging.
 
@@ -19,7 +19,7 @@ A little bit based on [Timber](https://github.com/JakeWharton/timber) library.
 Add dependency to project:
 
 ```bash
-flutter pub add logify --git-url=https://github.com/pedrox-hs/flutter_packages --git-path=logify
+dart pub add logify
 ```
 
 ## Usage
@@ -51,10 +51,6 @@ void main() {
 
   // Now, you can start using
   Log.i('info message');
-
-  // Or use the logging library
-  final logger = Logger('my_logger');
-  logger.info('info message');
 }
 ```
 All other packages that use logging will also be handled by `DebugLogRecorder`.
