@@ -92,5 +92,5 @@ jobs:
       - name: Codecov
         uses: codecov/codecov-action@v3
         with:
-          name: ${{ matrix.tests }}
+          flags: ${{ matrix.tests }}
           file: ${{ matrix.tests }}/coverage/lcov.info
