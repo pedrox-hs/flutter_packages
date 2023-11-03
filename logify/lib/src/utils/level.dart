@@ -8,7 +8,7 @@ extension LevelExt on Level {
   ConsoleColor get color => _styles[this]?.color ?? const ConsoleColor.none();
 }
 
-final _styles = <Level, _Style> {
+final _styles = <Level, _Style>{
   Level.FINEST: const _Style('🔬', ConsoleColor.gray()),
   Level.FINER: const _Style('🔎', ConsoleColor.cyan()),
   Level.FINE: _Style('👌', const ConsoleColor.green().highlighted.bold),
