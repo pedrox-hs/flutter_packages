@@ -9,6 +9,8 @@ environment:
   sdk: '>=2.19.6 <3.0.0'
 
 dependencies:
+  flutter:
+    sdk: flutter
   analyzer: any
   build: any
   collection: any

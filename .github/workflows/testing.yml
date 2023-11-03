@@ -1,0 +1,96 @@
+name: Run automated tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  find-tests:
+    runs-on: ubuntu-latest
+    outputs:
+      tests: ${{ steps.find-tests.outputs.tests }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Find tests
+        id: find-tests
+        run: |
+          testable_pkg=$(find . -type f -name pubspec.yaml -execdir test -e './test' \; -exec dirname {} \; | sed -e 's,^\./,,' | sort -u | awk '{print}' ORS='", "')
+          echo "tests=[\"${testable_pkg::-4}\"]" >> $GITHUB_OUTPUT
+
+  run-tests:
+    needs: find-tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        tests: ${{ fromJson(needs.find-tests.outputs.tests) }}
+    defaults:
+      run:
+        working-directory: ${{ matrix.tests }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache pub packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-cache-
+
+      - name: Check if has Flutter SDK on pubspec.yaml
+        id: has-flutter-sdk
+        run: |
+          if grep -q 'sdk: *flutter' pubspec.yaml; then
+            echo "has-flutter-sdk=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-flutter-sdk=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        if: steps.has-flutter-sdk.outputs.has-flutter-sdk == 'false'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        if: steps.has-flutter-sdk.outputs.has-flutter-sdk == 'true'
+
+      - name: Install Coverage
+        run: |
+          dart pub global activate coverage
+        if: steps.has-flutter-sdk.outputs.has-flutter-sdk == 'false'
+
+      - name: Get package name
+        id: package-name
+        run: |
+          echo "package=$(grep -E '^name:' pubspec.yaml | awk '{print $2}')" >> $GITHUB_OUTPUT
+
+      - uses: stelynx/dart-full-coverage@v1.1.1
+        with:
+          package: ${{ steps.package-name.outputs.package }}
+          path: ${{ matrix.tests }}/lib
+          test_file: ${{ matrix.tests }}/test/full_coverage_helper.dart
+
+      - name: Run tests
+        run: |
+          dart pub get
+          if command -v test_with_coverage &> /dev/null; then
+            test_with_coverage
+          else
+            flutter test --coverage
+          fi
+
+      - name: Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          name: ${{ matrix.tests }}
+          file: ${{ matrix.tests }}/coverage/lcov.info
