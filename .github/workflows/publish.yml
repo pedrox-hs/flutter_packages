@@ -7,8 +7,23 @@ on:
 
 jobs:
   publish:
+    needs: package
     permissions:
       id-token: write # Required for authentication using OIDC
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
     with:
-      working-directory: logify
+      working-directory: ${{ needs.package.outputs.name }}
+
+  package:
+    name: Get package name from tag
+    runs-on: ubuntu-latest
+    outputs:
+      name: ${{ steps.package.outputs.name }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.1
+
+      - name: Get package name
+        id: package
+        run: |
+          echo "name=$(echo ${{ github.ref }} | sed -E 's/.+?\/([a-z_]+?)-v.+$/\1/')" >> $GITHUB_OUTPUT
