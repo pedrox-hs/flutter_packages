@@ -1,6 +1,6 @@
 name: logify
 description: Just another library for logging
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/pedrox-hs/flutter_packages
 repository: https://github.com/pedrox-hs/flutter_packages/tree/main/logify
 
