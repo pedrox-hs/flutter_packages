@@ -1,4 +1,4 @@
-name: Alls green workflow
+name: Alls green
 
 on:
   push:
