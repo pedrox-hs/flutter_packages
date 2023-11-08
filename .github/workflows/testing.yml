@@ -60,13 +60,13 @@ jobs:
             echo "has-flutter-sdk=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
-        if: steps.has-flutter-sdk.outputs.has-flutter-sdk == 'false'
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         if: steps.has-flutter-sdk.outputs.has-flutter-sdk == 'true'
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        if: steps.has-flutter-sdk.outputs.has-flutter-sdk == 'false'
 
       - name: Install Coverage
         run: |
@@ -80,7 +80,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          dart pub get
+          if command -v flutter &> /dev/null; then
+            flutter pub get
+          else
+            dart pub get
+          fi
 
       - name: Ensure test directory exists
         run: |
@@ -91,6 +95,13 @@ jobs:
           use_git_root: false
           main_dir: ${{ matrix.tests }}
           package: ${{ steps.package-name.outputs.package }}
+          test_file: test/coverage_helper_test.dart
+
+      - name: Add fake test to help coverage
+        run: |
+          sed -i '/^void main/d' test/coverage_helper_test.dart
+          echo "import 'package:test/test.dart';\nvoid main(){ test('dart-full-coverage', () {}); }" >> test/coverage_helper_test.dart
+          dart pub add test --dev
 
       - name: Run tests
         run: |
