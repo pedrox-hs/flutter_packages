@@ -90,7 +90,7 @@ jobs:
         with:
           package: ${{ steps.package-name.outputs.package }}
           path: ${{ matrix.tests }}/lib
-          test_file: ${{ matrix.tests }}/test/full_coverage_helper.dart
+          test_file: ${{ matrix.tests }}/test/coverage_helper_test.dart
 
       - name: Run tests
         run: |
