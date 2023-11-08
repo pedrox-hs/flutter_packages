@@ -88,9 +88,9 @@ jobs:
 
       - uses: stelynx/dart-full-coverage@v1.1.1
         with:
+          use_git_root: false
+          main_dir: ${{ matrix.tests }}
           package: ${{ steps.package-name.outputs.package }}
-          path: ${{ matrix.tests }}/lib
-          test_file: ${{ matrix.tests }}/test/coverage_helper_test.dart
 
       - name: Run tests
         run: |
