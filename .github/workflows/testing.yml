@@ -84,7 +84,7 @@ jobs:
 
       - name: Ensure test directory exists
         run: |
-          mkdir test
+          [ -d test ] || mkdir test
 
       - uses: stelynx/dart-full-coverage@v1.1.1
         with:
