@@ -100,7 +100,7 @@ jobs:
       - name: Add fake test to help coverage
         run: |
           sed -i '/^void main/d' test/coverage_helper_test.dart
-          echo "import 'package:test/test.dart';\nvoid main(){ test('dart-full-coverage', () {}); }" >> test/coverage_helper_test.dart
+          echo -e "import 'package:test/test.dart';\nvoid main(){ test('dart-full-coverage', () {}); }" >> test/coverage_helper_test.dart
           dart pub add test --dev
 
       - name: Run tests
