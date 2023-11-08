@@ -22,7 +22,11 @@ jobs:
       - name: Find tests
         id: find-tests
         run: |
-          testable_pkg=$(find . -type f -name pubspec.yaml -execdir test -e './test' \; -exec dirname {} \; | sed -e 's,^\./,,' | sort -u | awk '{print}' ORS='", "')
+          testable_pkg=$(
+            find . -type f -name pubspec.yaml -not -path '**/example/*' -exec dirname {} \; \
+              | sed -e 's,^\./,,' \
+              | sort -u \
+              | awk '{print}' ORS='", "')
           echo "tests=[\"${testable_pkg::-4}\"]" >> $GITHUB_OUTPUT
 
   run-tests:
@@ -74,6 +78,14 @@ jobs:
         run: |
           echo "package=$(grep -E '^name:' pubspec.yaml | awk '{print $2}')" >> $GITHUB_OUTPUT
 
+      - name: Install dependencies
+        run: |
+          dart pub get
+
+      - name: Ensure test directory exists
+        run: |
+          mkdir test
+
       - uses: stelynx/dart-full-coverage@v1.1.1
         with:
           package: ${{ steps.package-name.outputs.package }}
@@ -82,7 +94,6 @@ jobs:
 
       - name: Run tests
         run: |
-          dart pub get
           if command -v test_with_coverage &> /dev/null; then
             test_with_coverage
           else
