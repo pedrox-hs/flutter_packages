@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Get Pull Request data
         id: prs
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const pullRequests = context.payload.workflow_run.pull_requests;
