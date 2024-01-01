@@ -1,7 +1,7 @@
 from_owner:
   - pedrox-hs
 required_labels:
-  - autoapprove
+  - autoapproval
 apply_labels:
   - automerge
 ignored_labels:
