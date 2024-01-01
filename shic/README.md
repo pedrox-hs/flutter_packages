@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/pedrox-hs/flutter_packages/graph/badge.svg?flag=shic)](https://app.codecov.io/gh/pedrox-hs/flutter_packages?flags%5B0%5D=shic)
+
 SHIC (Simple HTTP Interceptor Chain) is just another library for HTTP requests.
 
 A little bit based on [OkHttp](https://square.github.io/okhttp/) library.

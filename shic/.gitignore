@@ -28,3 +28,6 @@
 .packages
 build/
 .flutter-plugins*
+
+# coverage
+coverage/
