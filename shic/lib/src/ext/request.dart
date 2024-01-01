@@ -1,28 +1,31 @@
 import 'package:http/http.dart';
 
 extension RequestExt<T extends BaseRequest> on T {
-  BaseRequest copyWith({
-    String? method,
+  T copyWith({
     Uri? url,
-    Map<String, String>? headers,
+    Map<String, String> headers = const {},
   }) {
-    final other = this;
-    late final BaseRequest newRequest;
+    final original = this;
+    late final dynamic newRequest;
 
-    if (other is Request) {
-      newRequest = Request(method ?? other.method, url ?? other.url)
-        ..encoding = other.encoding
-        ..bodyBytes = other.bodyBytes;
-    } else if (other is MultipartRequest) {
-      newRequest = MultipartRequest(method ?? other.method, url ?? other.url)
-        ..fields.addAll(other.fields)
-        ..files.addAll(other.files);
+    if (original is Request) {
+      newRequest = Request(original.method, url ?? original.url)
+        ..encoding = original.encoding
+        ..bodyBytes = original.bodyBytes;
+    } else if (original is MultipartRequest) {
+      newRequest = MultipartRequest(original.method, url ?? original.url)
+        ..fields.addAll(original.fields)
+        ..files.addAll(original.files);
+    } else if (original is StreamedRequest) {
+      newRequest = StreamedRequest(original.method, url ?? original.url);
     } else {
-      throw UnsupportedError(
-        'Unsupported request type `${runtimeType.toString()}`',
-      );
+      throw UnsupportedError('Unsupported request type `$runtimeType`');
     }
 
-    return newRequest..headers.addAll(headers ?? other.headers);
+    return newRequest
+      ..headers.addAll({...original.headers, ...headers})
+      ..persistentConnection = original.persistentConnection
+      ..followRedirects = original.followRedirects
+      ..maxRedirects = original.maxRedirects;
   }
 }
