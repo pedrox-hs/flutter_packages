@@ -2,9 +2,9 @@ import 'package:http/http.dart';
 
 import 'client_wrapper.dart';
 import 'interceptor.dart';
-import 'interceptors/assets.dart';
-import 'interceptors/base_url_resolver.dart';
-import 'interceptors/connection.dart';
+import 'interceptors/assets_interceptor.dart';
+import 'interceptors/base_url_resolver_interceptor.dart';
+import 'interceptors/network_connection_interceptor.dart';
 
 typedef ChainInterceptor = Future<StreamedResponse> Function(BaseRequest req);
 
@@ -22,8 +22,8 @@ class InterceptableClient extends BaseClient {
       InterceptableClient(
         baseClient: baseClient,
         interceptors: [
-          const AssetsInterceptor(),
-          ConnectionInterceptor(),
+          AssetsInterceptor(),
+          NetworkConnectionInterceptor(),
           if (baseUrl != null) ResolveBaseUrlInterceptor(baseUrl),
           ...interceptors,
         ],
