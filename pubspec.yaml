@@ -1,0 +1,7 @@
+name: flutter_packages
+description: Collection of Dart packages
+
+environment:
+  sdk: ^3.7.2
+
+workspace: [ ]
