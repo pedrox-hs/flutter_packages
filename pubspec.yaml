@@ -9,6 +9,7 @@ workspace:
   - auto_route/generator
   - error_adapter
   - logify
+  - pubspec_gen
   - shared_lints
   - shic
   - simple_nav

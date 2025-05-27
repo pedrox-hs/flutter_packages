@@ -1,0 +1,14 @@
+name: pubspec_gen_example
+description: Example project for pubspec_gen
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  pubspec_gen:
+    path: ../
+
+dev_dependencies:
+  build_runner: ^2.4.15
