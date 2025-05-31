@@ -1,5 +1,1 @@
-include: ../dart_lints.yaml
-
-linter:
-  rules:
-    unnecessary_brace_in_string_interps: false
+include: package:shared_lints/dart.yaml
