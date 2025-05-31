@@ -1,4 +1,4 @@
-library logify;
+library;
 
 export 'src/utils/color.dart';
 export 'src/utils/level.dart';

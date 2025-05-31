@@ -1,4 +1,4 @@
-library auto_route;
+library;
 
 import 'package:flutter/material.dart';
 

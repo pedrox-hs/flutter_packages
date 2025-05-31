@@ -1,4 +1,4 @@
-library error_adapter;
+library;
 
 export 'src/adapter.dart';
 export 'src/converter.dart' hide ErrorConverterWrapper;

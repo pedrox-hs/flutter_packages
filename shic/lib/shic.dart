@@ -1,4 +1,4 @@
-library shic;
+library;
 
 export 'src/ext/client.dart';
 export 'src/ext/request.dart';

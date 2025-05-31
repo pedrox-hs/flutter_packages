@@ -1,4 +1,4 @@
-library state_action_bloc;
+library;
 
 export 'package:flutter_bloc/flutter_bloc.dart';
 
