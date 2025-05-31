@@ -8,4 +8,5 @@ workspace:
   - error_adapter
   - logify
   - shic
+  - simple_nav
   - state_action_bloc
