@@ -1,7 +1,0 @@
-dependency_overrides:
-  auto_route:
-    path: ../auto_route
-  simple_nav:
-    path: ../../simple_nav
-  logify:
-    path: ../../logify

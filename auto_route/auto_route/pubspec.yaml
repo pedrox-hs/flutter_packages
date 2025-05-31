@@ -6,16 +6,15 @@ repository: https://github.com/pedrox-hs/flutter_packages/tree/main/auto_route/a
 publish_to: none
 
 environment:
-  sdk: '>=2.19.6 <3.0.0'
-  flutter: ">=1.17.0"
+  sdk: ^3.7.2
+  flutter: ^3.29.2
+
+resolution: workspace
 
 dependencies:
   flutter:
     sdk: flutter
-  simple_nav:
-    git:
-      url: https://github.com/pedrox-hs/flutter_packages
-      path: simple_nav
+  simple_nav: ^0.1.0
 
 dev_dependencies:
   flutter_test:

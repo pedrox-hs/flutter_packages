@@ -5,6 +5,8 @@ environment:
   sdk: ^3.7.2
 
 workspace:
+  - auto_route/auto_route
+  - auto_route/generator
   - error_adapter
   - logify
   - shic

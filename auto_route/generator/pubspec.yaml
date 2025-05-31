@@ -6,7 +6,10 @@ repository: https://github.com/pedrox-hs/flutter_packages/tree/main/auto_route/g
 publish_to: none
 
 environment:
-  sdk: '>=2.19.6 <3.0.0'
+  sdk: ^3.7.2
+  flutter: ^3.29.2
+
+resolution: workspace
 
 dependencies:
   flutter:
@@ -17,14 +20,8 @@ dependencies:
   source_gen: any
   build_runner: any
   logging: ^1.1.1
-  auto_route:
-    git:
-      url: https://github.com/pedrox-hs/flutter_packages
-      path: auto_route
-  logify:
-    git:
-      url: https://github.com/pedrox-hs/flutter_packages
-      path: logify
+  auto_route: ^0.1.0
+  logify: ^1.0.0
 
 dev_dependencies:
   build_test: any
