@@ -7,4 +7,5 @@ environment:
 workspace:
   - error_adapter
   - logify
+  - shic
   - state_action_bloc
