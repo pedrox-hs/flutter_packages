@@ -46,11 +46,11 @@ void main() {
         final args = ['message', 'error', StackTrace.current];
 
         when(
-          () => invokeInstanceMethod(
-            mockLogger,
-            loggerMethod,
-            [any(), any(), any()],
-          ),
+          () => invokeInstanceMethod(mockLogger, loggerMethod, [
+            any(),
+            any(),
+            any(),
+          ]),
         ).thenReturn(null);
 
         // act
@@ -69,11 +69,11 @@ void main() {
           final args = ['message', 'error'];
 
           when(
-            () => invokeInstanceMethod(
-              mockLogger,
-              loggerMethod,
-              [any(), any(), any()],
-            ),
+            () => invokeInstanceMethod(mockLogger, loggerMethod, [
+              any(),
+              any(),
+              any(),
+            ]),
           ).thenReturn(null);
 
           // act
@@ -81,11 +81,10 @@ void main() {
 
           // assert
           final verifier = verify(
-            () => invokeInstanceMethod(
-              mockLogger,
-              loggerMethod,
-              [...args, captureAny<StackTrace>()],
-            ),
+            () => invokeInstanceMethod(mockLogger, loggerMethod, [
+              ...args,
+              captureAny<StackTrace>(),
+            ]),
           );
           verifier.called(1);
           final captured = verifier.captured.single as Trace?;
@@ -107,11 +106,11 @@ void main() {
           final args = [message];
 
           when(
-            () => invokeInstanceMethod(
-              mockLogger,
-              loggerMethod,
-              [any(), any(), any()],
-            ),
+            () => invokeInstanceMethod(mockLogger, loggerMethod, [
+              any(),
+              any(),
+              any(),
+            ]),
           ).thenReturn(null);
 
           // act
@@ -119,11 +118,11 @@ void main() {
 
           // assert
           final verifier = verify(
-            () => invokeInstanceMethod(
-              mockLogger,
-              loggerMethod,
-              [message, captureAny(), any()],
-            ),
+            () => invokeInstanceMethod(mockLogger, loggerMethod, [
+              message,
+              captureAny(),
+              any(),
+            ]),
           );
           verifier.called(1);
           final captured = verifier.captured.single;
@@ -138,11 +137,11 @@ void main() {
           final args = [null];
 
           when(
-            () => invokeInstanceMethod(
-              mockLogger,
-              loggerMethod,
-              [any(), any(), any()],
-            ),
+            () => invokeInstanceMethod(mockLogger, loggerMethod, [
+              any(),
+              any(),
+              any(),
+            ]),
           ).thenReturn(null);
 
           // act
@@ -150,11 +149,11 @@ void main() {
 
           // assert
           final verifier = verify(
-            () => invokeInstanceMethod(
-              mockLogger,
-              loggerMethod,
-              [any(), captureAny(), any()],
-            ),
+            () => invokeInstanceMethod(mockLogger, loggerMethod, [
+              any(),
+              captureAny(),
+              any(),
+            ]),
           );
           verifier.called(1);
           final captured = verifier.captured.single;
@@ -163,40 +162,34 @@ void main() {
       );
     }
 
-    test(
-      'clearListeners should call Logger::clearListeners',
-      () {
-        // arrange
-        when(() => mockLogger.clearListeners()).thenReturn(null);
+    test('clearListeners should call Logger::clearListeners', () {
+      // arrange
+      when(() => mockLogger.clearListeners()).thenReturn(null);
 
-        // act
-        Log.clearListeners();
+      // act
+      Log.clearListeners();
 
-        // assert
-        verify(() => mockLogger.clearListeners()).called(1);
-      },
-    );
+      // assert
+      verify(() => mockLogger.clearListeners()).called(1);
+    });
 
-    test(
-      'listen should call Logger::onRecord::listen',
-      () {
-        // arrange
-        final recorder = _FakeLogRecorder();
-        final mockStream = _MockStream();
-        final subscription = _FakeStreamSubscription();
+    test('listen should call Logger::onRecord::listen', () {
+      // arrange
+      final recorder = _FakeLogRecorder();
+      final mockStream = _MockStream();
+      final subscription = _FakeStreamSubscription();
 
-        when(() => mockLogger.onRecord).thenAnswer((_) => mockStream);
+      when(() => mockLogger.onRecord).thenAnswer((_) => mockStream);
 
-        when(() => mockStream.listen(any())).thenReturn(subscription);
+      when(() => mockStream.listen(any())).thenReturn(subscription);
 
-        // act
-        final actual = Log.listen(recorder);
+      // act
+      final actual = Log.listen(recorder);
 
-        // assert
-        verify(() => mockStream.listen(recorder.call)).called(1);
-        expect(actual, equals(subscription));
-      },
-    );
+      // assert
+      verify(() => mockStream.listen(recorder.call)).called(1);
+      expect(actual, equals(subscription));
+    });
   });
 }
 

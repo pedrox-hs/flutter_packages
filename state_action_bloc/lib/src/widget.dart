@@ -10,16 +10,19 @@ import 'state.dart';
 
 part 'impl/widget.dart';
 
-mixin StateActionMixin<B extends StateActionBloc<S, A>, S extends IState,
-    A extends IAction> {
+mixin StateActionMixin<
+  B extends StateActionBloc<S, A>,
+  S extends IState,
+  A extends IAction
+> {
   B? get bloc => null;
 
   @nonVirtual
   Widget build(BuildContext context) => _StateActionWidget<B, S, A>(
-        bloc: bloc,
-        stateBuilder: buildState,
-        actionHandler: handleAction,
-      );
+    bloc: bloc,
+    stateBuilder: buildState,
+    actionHandler: handleAction,
+  );
 
   Widget buildState(BuildContext context, S state);
 
@@ -30,10 +33,8 @@ mixin StateMixin<B extends StateBloc<S>, S extends IState> {
   B? get bloc => null;
 
   @nonVirtual
-  Widget build(BuildContext context) => _StateActionWidget<B, S, IAction>(
-        bloc: bloc,
-        stateBuilder: buildState,
-      );
+  Widget build(BuildContext context) =>
+      _StateActionWidget<B, S, IAction>(bloc: bloc, stateBuilder: buildState);
 
   Widget buildState(BuildContext context, S state);
 }
@@ -43,10 +44,10 @@ mixin ActionMixin<B extends ActionBloc<A>, A extends IAction> {
 
   @nonVirtual
   Widget build(BuildContext context) => _StateActionWidget<B, IState, A>(
-        bloc: bloc,
-        stateBuilder: (context, _) => buildWidget(context),
-        actionHandler: handleAction,
-      );
+    bloc: bloc,
+    stateBuilder: (context, _) => buildWidget(context),
+    actionHandler: handleAction,
+  );
 
   Widget buildWidget(BuildContext context);
 

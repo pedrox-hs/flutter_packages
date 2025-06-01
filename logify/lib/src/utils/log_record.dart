@@ -8,9 +8,11 @@ extension LogRecordExt on LogRecord {
     final frame = trace?.frames.firstOrNull;
     if (frame == null) return loggerName;
 
-    return [frame.uri, frame.line, frame.column]
-        .takeWhile((value) => value != null)
-        .join(':');
+    return [
+      frame.uri,
+      frame.line,
+      frame.column,
+    ].takeWhile((value) => value != null).join(':');
   }
 
   Object? get errorIfSevere => isSevere ? error : null;

@@ -38,35 +38,31 @@ void main() {
       await server.shutdown();
     });
 
-    test(
-      'should make request successful when is connected',
-      () async {
-        // arrange
-        when(() => mockConnectivity.checkConnectivity())
-            .thenAnswer((_) async => ConnectivityResult.wifi);
+    test('should make request successful when is connected', () async {
+      // arrange
+      when(
+        () => mockConnectivity.checkConnectivity(),
+      ).thenAnswer((_) async => ConnectivityResult.wifi);
 
-        // act
-        final response = await client.get(Uri.parse('${server.url}/foo'));
+      // act
+      final response = await client.get(Uri.parse('${server.url}/foo'));
 
-        // assert
-        expect(response.request?.url.toString(), '${server.url}/foo');
-      },
-    );
+      // assert
+      expect(response.request?.url.toString(), '${server.url}/foo');
+    });
 
-    test(
-      'should throw NetworkConnectionException if disconnected',
-      () async {
-        // arrange
-        when(() => mockConnectivity.checkConnectivity())
-            .thenAnswer((_) async => ConnectivityResult.none);
+    test('should throw NetworkConnectionException if disconnected', () async {
+      // arrange
+      when(
+        () => mockConnectivity.checkConnectivity(),
+      ).thenAnswer((_) async => ConnectivityResult.none);
 
-        // act
-        final response = client.get(Uri.parse('/foo'));
+      // act
+      final response = client.get(Uri.parse('/foo'));
 
-        // assert
-        expect(response, throwsA(isA<NetworkConnectionException>()));
-      },
-    );
+      // assert
+      expect(response, throwsA(isA<NetworkConnectionException>()));
+    });
 
     test(
       'should throw NetworkConnectionException when client has SocketException',
@@ -82,14 +78,13 @@ void main() {
           ],
         );
         var connectivityResult = ConnectivityResult.wifi;
-        when(() => mockConnectivity.checkConnectivity())
-            .thenAnswer((_) async => connectivityResult);
-        when(() => mockHttpClient.send(any())).thenAnswer(
-          (invocation) async {
-            connectivityResult = ConnectivityResult.none;
-            throw SocketException('foo');
-          },
-        );
+        when(
+          () => mockConnectivity.checkConnectivity(),
+        ).thenAnswer((_) async => connectivityResult);
+        when(() => mockHttpClient.send(any())).thenAnswer((invocation) async {
+          connectivityResult = ConnectivityResult.none;
+          throw SocketException('foo');
+        });
 
         // act
         final response = client.get(Uri.parse('/foo'));

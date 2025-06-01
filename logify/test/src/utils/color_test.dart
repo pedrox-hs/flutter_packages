@@ -81,9 +81,10 @@ void main() {
           'wrap should return the correct ANSI escape codes when $color is $variation',
           () {
             // arrange
-            final variationColor = variation != 'default'
-                ? invokeInstanceGetter<ConsoleColor>(color, variation)
-                : color;
+            final variationColor =
+                variation != 'default'
+                    ? invokeInstanceGetter<ConsoleColor>(color, variation)
+                    : color;
 
             // act
             final actual = variationColor.wrap(variation);

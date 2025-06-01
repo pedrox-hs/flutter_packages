@@ -28,10 +28,7 @@ T invokeInstanceMethod<T>(
   return result.reflectee as T;
 }
 
-T invokeInstanceGetter<T>(
-  instance,
-  String getterName,
-) {
+T invokeInstanceGetter<T>(instance, String getterName) {
   final instanceMirror = reflect(instance);
   final symbol = Symbol(getterName);
 

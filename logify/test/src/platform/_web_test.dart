@@ -5,21 +5,15 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test(
-    'stdout log should be window.console.log',
-    () {
-      // assert
-      expect(stdout.log, window.console.log);
-    },
-  );
+  test('stdout log should be window.console.log', () {
+    // assert
+    expect(stdout.log, window.console.log);
+  });
 
-  test(
-    'stderr log should be window.console.error',
-    () {
-      // assert
-      expect(stderr.log, window.console.error);
-    },
-  );
+  test('stderr log should be window.console.error', () {
+    // assert
+    expect(stderr.log, window.console.error);
+  });
 
   group(WebStdout, () {
     late WebStdout sut;

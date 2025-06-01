@@ -6,12 +6,12 @@ abstract class INetworkInfo {
 
 class NetworkInfo implements INetworkInfo {
   NetworkInfo([Connectivity? connectivity])
-      : _connectivity = connectivity ?? Connectivity();
+    : _connectivity = connectivity ?? Connectivity();
 
   final Connectivity _connectivity;
 
   @override
-  Future<bool> get isConnected => _connectivity
-      .checkConnectivity()
-      .then((result) => result != ConnectivityResult.none);
+  Future<bool> get isConnected => _connectivity.checkConnectivity().then(
+    (result) => result != ConnectivityResult.none,
+  );
 }

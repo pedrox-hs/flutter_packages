@@ -5,11 +5,9 @@ import 'platform/stdio.dart';
 import 'utils/string.dart';
 
 abstract class LogRecorder {
-  LogRecorder({
-    Stdout? stdout,
-    Stdout? stderr,
-  })  : stdout = stdout ?? io.stdout, // coverage:ignore-line
-        stderr = stderr ?? io.stderr; // coverage:ignore-line
+  LogRecorder({Stdout? stdout, Stdout? stderr})
+    : stdout = stdout ?? io.stdout, // coverage:ignore-line
+      stderr = stderr ?? io.stderr; // coverage:ignore-line
 
   final Stdout stdout;
   final Stdout stderr;
@@ -29,11 +27,7 @@ abstract class LogRecorder {
 mixin LogRecorderTemplateMixin on LogRecorder {
   String get template;
 
-  String? resolveRecordValue(
-    LogRecord record,
-    String key,
-    List<String> params,
-  );
+  String? resolveRecordValue(LogRecord record, String key, List<String> params);
 
   @override
   String record(LogRecord record) => template

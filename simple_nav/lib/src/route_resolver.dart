@@ -1,9 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-typedef RouteBuilder = Route Function(
-  RouteSettings settings,
-  RouteExtras extras,
-);
+typedef RouteBuilder =
+    Route Function(RouteSettings settings, RouteExtras extras);
 
 class RouteResolver {
   RouteResolver(this.routes);
