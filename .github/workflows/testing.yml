@@ -142,7 +142,7 @@ jobs:
           echo "name=$(echo ${{ matrix.package }} | sed -e 's/\//./g')" >> $GITHUB_OUTPUT
 
       - name: Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           flags: ${{ steps.codecov-flag.outputs.name }}
           file: ${{ matrix.package }}/coverage/lcov.info
