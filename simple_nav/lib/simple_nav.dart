@@ -1,3 +1,3 @@
-library simple_nav;
+library;
 
 export 'src/route_resolver.dart';

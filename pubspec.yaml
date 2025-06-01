@@ -9,6 +9,7 @@ workspace:
   - auto_route/generator
   - error_adapter
   - logify
+  - shared_lints
   - shic
   - simple_nav
   - state_action_bloc

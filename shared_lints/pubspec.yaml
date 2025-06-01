@@ -1,0 +1,14 @@
+name: shared_lints
+description: Lints to be used by the others packages in the project.
+version: 0.1.0
+homepage: https://github.com/pedrox-hs/flutter_packages
+repository: https://github.com/pedrox-hs/flutter_packages/tree/main/shared_lints
+
+environment:
+  sdk: ^3.7.2
+
+resolution: workspace
+
+dependencies:
+  flutter_lints: ^5.0.0
+  lints: ^5.0.0
