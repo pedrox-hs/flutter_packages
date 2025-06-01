@@ -1,0 +1,12 @@
+targets:
+  $default:
+    builders:
+      pubspec_gen|pubspec_gen:
+        options:
+          fields:
+            - path: name
+            - path: version
+            - path: description
+            - path: repository.url
+              name: repositoryUrl
+              default: https://example.com/default
