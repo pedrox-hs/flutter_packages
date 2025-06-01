@@ -2,9 +2,7 @@ part of '../bloc.dart';
 
 abstract class _StateBloc<S extends IState> extends _BlocBase
     implements _RealStateType<S> {
-  _StateBloc(initialState)
-      : _currentState = initialState,
-        super(initialState);
+  _StateBloc(super.initialState) : _currentState = initialState;
 
   S _currentState;
   @override
@@ -20,7 +18,7 @@ abstract class _StateBloc<S extends IState> extends _BlocBase
 }
 
 abstract class _BlocBase extends Cubit {
-  _BlocBase(initialState) : super(initialState);
+  _BlocBase(super.initialState);
 
   @override
   @internal

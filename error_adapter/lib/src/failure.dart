@@ -5,5 +5,5 @@ abstract class Failure {
 }
 
 class MessageFailure extends Failure {
-  MessageFailure(String message) : super(message);
+  MessageFailure(super.message);
 }

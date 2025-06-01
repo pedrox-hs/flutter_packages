@@ -35,9 +35,7 @@ abstract class ErrorConverterRegistry {
 }
 
 class ErrorConverterRegistryComposite extends ErrorConverterRegistry {
-  ErrorConverterRegistryComposite(
-    this._registries,
-  );
+  ErrorConverterRegistryComposite(this._registries);
 
   final Iterable<ErrorConverterRegistry> _registries;
 

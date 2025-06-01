@@ -36,12 +36,9 @@ void main() {
       final expectedEmoji = allEmojis[level];
       final expectedColor = allColors[level];
 
-      test(
-        'emoji should returns ${expectedEmoji} when level is ${level}',
-        () {
-          expect(level.emoji, expectedEmoji);
-        },
-      );
+      test('emoji should returns ${expectedEmoji} when level is ${level}', () {
+        expect(level.emoji, expectedEmoji);
+      });
 
       test(
         'color wrap should returns the correct ANSI escape codes when level is ${level}',

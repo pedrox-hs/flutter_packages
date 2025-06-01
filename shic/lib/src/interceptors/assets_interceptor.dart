@@ -25,8 +25,10 @@ class AssetsInterceptor implements HttpInterceptor {
 
     final path = url.toString().replaceFirst('$assetsScheme:/', assetsRootPath);
     final data = await _assetBundle.load(path);
-    final intData =
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    final intData = data.buffer.asUint8List(
+      data.offsetInBytes,
+      data.lengthInBytes,
+    );
 
     return StreamedResponse(
       ByteStream.fromBytes(intData),

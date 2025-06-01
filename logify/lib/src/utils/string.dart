@@ -23,9 +23,9 @@ extension StringExt on String {
   /// '{0} {2} {0}'.format(['foo', 'bar', 'baz', 'qux']);
   /// ```
   /// This will return `'foo baz foo'`.
-  String format(List<dynamic> params) => formatWithMap(
-        {for (var index = params.length; index-- > 0;) '$index': params[index]},
-      );
+  String format(List<dynamic> params) => formatWithMap({
+    for (var index = params.length; index-- > 0;) '$index': params[index],
+  });
 
   /// Replaces all occurrences of `{key}` with the value from [params] with the
   /// corresponding key.
@@ -42,9 +42,9 @@ extension StringExt on String {
   /// Replaces all occurrences of `{key}` with the value returned by [provider].
   /// If [provider] returns `null`, the original string is used.
   String formatWith(Function(String key) provider) => replaceAllMapped(
-        RegExp(r'{(.*?)}'),
-        (match) => '${provider(match[1]!) ?? match.input}',
-      );
+    RegExp(r'{(.*?)}'),
+    (match) => '${provider(match[1]!) ?? match.input}',
+  );
 
   /// Replaces all occurrences of `{key|param1|param2|...}` with the value
   /// returned by [provider].
@@ -57,9 +57,8 @@ extension StringExt on String {
   /// This will return `hello world, foo, bar`.
   String formatWithParameterized(
     Function(String key, List<String> params) provider,
-  ) =>
-      formatWith((key) {
-        final params = key.split('|');
-        return provider(params.first, params.skip(1).toList());
-      });
+  ) => formatWith((key) {
+    final params = key.split('|');
+    return provider(params.first, params.skip(1).toList());
+  });
 }

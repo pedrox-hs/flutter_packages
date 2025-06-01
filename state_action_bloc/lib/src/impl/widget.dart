@@ -1,24 +1,24 @@
 part of '../widget.dart';
 
-typedef WidgetStateBuilder<S extends IState> = Widget Function(
-  BuildContext context,
-  S state,
-);
+typedef WidgetStateBuilder<S extends IState> =
+    Widget Function(BuildContext context, S state);
 
-typedef WidgetActionHandler<A extends IAction> = FutureOr Function(
-  BuildContext context,
-  A action,
-);
+typedef WidgetActionHandler<A extends IAction> =
+    FutureOr Function(BuildContext context, A action);
 
 @immutable
-class _StateActionWidget<B extends BlocBase, S extends IState,
-    A extends IAction> extends StatelessWidget {
+class _StateActionWidget<
+  B extends BlocBase,
+  S extends IState,
+  A extends IAction
+>
+    extends StatelessWidget {
   const _StateActionWidget({
-    Key? key,
+    super.key,
     this.bloc,
     required this.stateBuilder,
     this.actionHandler,
-  }) : super(key: key);
+  });
 
   final B? bloc;
   final WidgetStateBuilder<S> stateBuilder;
@@ -31,8 +31,9 @@ class _StateActionWidget<B extends BlocBase, S extends IState,
     final consumer = BlocConsumer<B, dynamic>(
       listenWhen: (_, current) => current is A,
       listener: _handleAction,
-      buildWhen: (previous, current) =>
-          current is S && previous is! A && previous != current,
+      buildWhen:
+          (previous, current) =>
+              current is S && previous is! A && previous != current,
       builder: _buildState,
     );
 

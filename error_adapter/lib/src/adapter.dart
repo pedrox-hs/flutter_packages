@@ -5,10 +5,7 @@ import 'failure.dart';
 import 'registry.dart';
 
 class FailureAdapter {
-  const FailureAdapter({
-    required this.fallback,
-    this.registry,
-  });
+  const FailureAdapter({required this.fallback, this.registry});
 
   final ErrorConverter fallback;
   final ErrorConverterRegistry? registry;

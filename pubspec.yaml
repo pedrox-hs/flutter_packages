@@ -1,0 +1,14 @@
+name: flutter_packages
+description: Collection of Dart packages
+
+environment:
+  sdk: ^3.7.2
+
+workspace:
+  - auto_route/auto_route
+  - auto_route/generator
+  - error_adapter
+  - logify
+  - shic
+  - simple_nav
+  - state_action_bloc

@@ -22,10 +22,7 @@ void main() {
         MultipartFile.fromBytes('foo', [1, 2, 3]),
         MultipartFile.fromBytes('bar', [4, 5, 6]),
       ];
-      final fields = {
-        'foo': 'bar',
-        'baz': 'qux',
-      };
+      final fields = {'foo': 'bar', 'baz': 'qux'};
 
       when(() => sut.send(any())).thenAnswer(
         (_) async => StreamedResponse(ByteStream.fromBytes([]), 201),

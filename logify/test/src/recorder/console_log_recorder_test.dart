@@ -17,59 +17,50 @@ void main() {
       stdout = _MockStdout();
       stderr = _MockStdout();
 
-      sut = ConsoleLogRecorder(
-        stdout: stdout,
-        stderr: stderr,
-      );
+      sut = ConsoleLogRecorder(stdout: stdout, stderr: stderr);
     });
 
-    test(
-      'should print the message to stdout if the level is not severe',
-      () {
-        // arrange
-        final record = LogRecord(
-          Level.INFO,
-          'some info message',
-          'logger_name',
-          'error',
-          StackTrace.current,
-        );
-        const expected = '[  INFO   ] some info message';
+    test('should print the message to stdout if the level is not severe', () {
+      // arrange
+      final record = LogRecord(
+        Level.INFO,
+        'some info message',
+        'logger_name',
+        'error',
+        StackTrace.current,
+      );
+      const expected = '[  INFO   ] some info message';
 
-        // act
-        sut(record);
+      // act
+      sut(record);
 
-        // assert
-        final verifier = verify(() => stdout.writeln(captureAny()));
-        verifier.called(1);
-        verifyNever(() => stderr.writeln(any()));
-        expect(verifier.captured.single, expected);
-      },
-    );
+      // assert
+      final verifier = verify(() => stdout.writeln(captureAny()));
+      verifier.called(1);
+      verifyNever(() => stderr.writeln(any()));
+      expect(verifier.captured.single, expected);
+    });
 
-    test(
-      'should print the message to stderr if the level is severe',
-      () {
-        // arrange
-        final record = LogRecord(
-          Level.SEVERE,
-          'severe message',
-          'logger_name',
-          'error',
-          StackTrace.current,
-        );
-        final expected = '[ SEVERE  ] severe message\nerror\n${record.trace}';
+    test('should print the message to stderr if the level is severe', () {
+      // arrange
+      final record = LogRecord(
+        Level.SEVERE,
+        'severe message',
+        'logger_name',
+        'error',
+        StackTrace.current,
+      );
+      final expected = '[ SEVERE  ] severe message\nerror\n${record.trace}';
 
-        // act
-        sut(record);
+      // act
+      sut(record);
 
-        // assert
-        final verifier = verify(() => stderr.writeln(captureAny()));
-        verifier.called(1);
-        verifyNever(() => stdout.writeln(any()));
-        expect(verifier.captured.single, expected);
-      },
-    );
+      // assert
+      final verifier = verify(() => stderr.writeln(captureAny()));
+      verifier.called(1);
+      verifyNever(() => stdout.writeln(any()));
+      expect(verifier.captured.single, expected);
+    });
   });
 }
 

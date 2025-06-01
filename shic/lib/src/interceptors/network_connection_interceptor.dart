@@ -13,9 +13,9 @@ class NetworkConnectionInterceptor implements HttpInterceptor {
   NetworkConnectionInterceptor({
     INetworkInfo? networkInfo,
     IsConnectivityError? isConnectivityError,
-  })  : _networkInfo = networkInfo ?? NetworkInfo(), // coverage:ignore-line
-        _isConnectivityError =
-            isConnectivityError ?? defaultIsConnectivityErrorChecker;
+  }) : _networkInfo = networkInfo ?? NetworkInfo(), // coverage:ignore-line
+       _isConnectivityError =
+           isConnectivityError ?? defaultIsConnectivityErrorChecker;
 
   final INetworkInfo _networkInfo;
   final IsConnectivityError _isConnectivityError;

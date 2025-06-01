@@ -19,11 +19,7 @@ void main() {
       server.enqueue(httpCode: 200, body: serverResponse);
 
       client = InterceptableClient(
-        interceptors: [
-          AssetsInterceptor(
-            bundle: _TestAssetBundle(),
-          ),
-        ],
+        interceptors: [AssetsInterceptor(bundle: _TestAssetBundle())],
       );
     });
 
@@ -31,37 +27,31 @@ void main() {
       await server.shutdown();
     });
 
-    test(
-      'should return asset response',
-      () async {
-        // arrange
-        final url = Uri.parse('assets://foo/bar.txt');
-        final expected = _TestAssetBundle.assetData;
+    test('should return asset response', () async {
+      // arrange
+      final url = Uri.parse('assets://foo/bar.txt');
+      final expected = _TestAssetBundle.assetData;
 
-        // act
-        final response = await client.get(url);
+      // act
+      final response = await client.get(url);
 
-        // assert
-        expect(response.request?.url, url);
-        expect(response.body, expected);
-      },
-    );
+      // assert
+      expect(response.request?.url, url);
+      expect(response.body, expected);
+    });
 
-    test(
-      'should return original response',
-      () async {
-        // arrange
-        final url = Uri.parse(server.url);
-        final expected = serverResponse;
+    test('should return original response', () async {
+      // arrange
+      final url = Uri.parse(server.url);
+      final expected = serverResponse;
 
-        // act
-        final response = await client.get(url);
+      // act
+      final response = await client.get(url);
 
-        // assert
-        expect(response.request?.url, url);
-        expect(response.body, expected);
-      },
-    );
+      // assert
+      expect(response.request?.url, url);
+      expect(response.body, expected);
+    });
   });
 }
 

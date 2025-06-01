@@ -1,5 +1,6 @@
 import 'dart:math';
-import 'dart:mirrors';
+import 'dart:nativewrappers/_internal/vm/lib/mirrors_patch.dart'
+    if (dart.library.mirrors) 'dart:mirrors';
 
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
@@ -27,10 +28,7 @@ T invokeInstanceMethod<T>(
   return result.reflectee as T;
 }
 
-T invokeInstanceGetter<T>(
-  instance,
-  String getterName,
-) {
+T invokeInstanceGetter<T>(instance, String getterName) {
   final instanceMirror = reflect(instance);
   final symbol = Symbol(getterName);
 
@@ -40,9 +38,6 @@ T invokeInstanceGetter<T>(
 
 extension RandomExt on Random {
   String nextString(int length) => String.fromCharCodes(
-        Iterable.generate(
-          length,
-          (_) => _chars.codeUnitAt(nextInt(_chars.length)),
-        ),
-      );
+    Iterable.generate(length, (_) => _chars.codeUnitAt(nextInt(_chars.length))),
+  );
 }

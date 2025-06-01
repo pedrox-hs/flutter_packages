@@ -23,7 +23,7 @@ jobs:
         id: find-packages
         run: |
           packages=$(
-            find . -type f -name pubspec.yaml -not -path '**/example/*' -exec dirname {} \; \
+            find . -mindepth 2 -type f -name pubspec.yaml -not -path '**/example/*' -exec dirname {} \; \
               | sed -e 's,^\./,,' \
               | sort -u \
               | awk '{print}' ORS='", "')
@@ -81,6 +81,22 @@ jobs:
         if: steps.has-flutter-sdk.outputs.has-flutter-sdk == 'false'
         run: |
           dart pub global activate coverage
+
+      - name: Remove Flutter specific packages from Workspace
+        if: steps.has-flutter-sdk.outputs.has-flutter-sdk == 'false'
+        working-directory: ${{ github.workspace }}
+        run: |
+          PUBSPEC_MAIN="pubspec.yaml"
+
+          yq e '.workspace[]' $PUBSPEC_MAIN | while read item; do
+            has_flutter=$(yq e '.environment.flutter' "$item/pubspec.yaml")
+            if [[ "$has_flutter" != "null" ]]; then
+              escaped_item=$(echo "$item" | sed 's|/|\\/|g')
+              sed -i "/  - $escaped_item$/d" "$PUBSPEC_MAIN"
+            fi
+          done
+
+          git diff -w pubspec.yaml
 
       - name: Get package name
         id: package-name

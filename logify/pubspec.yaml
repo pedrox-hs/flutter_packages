@@ -5,7 +5,9 @@ homepage: https://github.com/pedrox-hs/flutter_packages
 repository: https://github.com/pedrox-hs/flutter_packages/tree/main/logify
 
 environment:
-  sdk: '>=2.12.0 <4.0.0'
+  sdk: ^3.7.2
+
+resolution: workspace
 
 dependencies:
   logging: '>=1.0.0 <2.0.0'
