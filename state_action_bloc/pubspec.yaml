@@ -11,7 +11,7 @@ environment:
 resolution: workspace
 
 dependencies:
-  bloc: ^8.1.0
+  bloc: ^9.0.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
