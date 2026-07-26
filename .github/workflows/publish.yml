@@ -21,7 +21,7 @@ jobs:
       name: ${{ steps.package.outputs.name }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4.4.0
 
       - name: Get package name
         id: package
